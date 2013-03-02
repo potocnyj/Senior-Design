@@ -8,7 +8,8 @@
 #define DATA_LEN          6        // how many bytes the relevant data is
 
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
-
+int leftSignal = 13;
+int rightSignal = 8;
 
 // This will process all the data for us
 void checkSerial()
@@ -53,6 +54,12 @@ void gateKeeper()
       break;
     case 's':
       cruiseSpeedDown();
+      break;
+    case 'l':
+      signalButtonPressed(leftSignal);
+      break;
+    case 'r':
+      signalButtonPressed(rightSignal);
       break;
     default:
       break;
