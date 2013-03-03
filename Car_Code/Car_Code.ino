@@ -10,7 +10,7 @@ Timer t;
 int i;
 int lastSpeed;
 boolean success;
-
+boolean collisionNear = false;
 
 void setup()
 {
@@ -25,6 +25,7 @@ void setup()
 void loop()
 {
   checkSerial();    // find if there is any data waiting for us
+  collisionNear = collisionImminent();
   motorAlphaControl();
   t.update();
 }// end loop

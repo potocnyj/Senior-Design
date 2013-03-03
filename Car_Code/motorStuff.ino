@@ -38,7 +38,14 @@ void motorControl(int dataIn)
   // write the speed to the engine 
   if((dataIn >= MOTOR_MIN) && (dataIn <= MOTOR_MAX))
   {
-    motor.writeMicroseconds(dataIn);
+    if(!collisionNear)
+    {
+      motor.writeMicroseconds(dataIn);
+    }
+    else if(dataIn <= MOTOR_NEU)
+    {
+      motor.writeMicroseconds(dataIn);
+    }
   }
 }//end engine
     
@@ -74,9 +81,3 @@ void motorAlphaControl()
     }
   } 
 }//end motorAlphaControl
-
-
-
-
-
-

@@ -22,6 +22,7 @@ void initCruise()
   }
 }//end initCruise
 
+
 void cruiseSpeedUp()
 {
   if(cruiseControl)
