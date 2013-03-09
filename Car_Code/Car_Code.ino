@@ -9,6 +9,7 @@
 Timer t;
 int i;
 int lastSpeed;
+char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 boolean success;
 boolean collisionNear = false;
 

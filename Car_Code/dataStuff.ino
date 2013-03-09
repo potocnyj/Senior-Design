@@ -7,7 +7,7 @@
 #define DRIVE_LOW         -32768
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
+
 int leftSignal = 13;
 int rightSignal = 8;
 
@@ -47,7 +47,7 @@ void gateKeeper()
       steerControl(steerParse());        // steering
       break;
     case 'c': // cruise control
-      initCruise(data[PACKET_LEN], data[1]);  // last byte for parsing, 1 for speed control
+      parseCruise();  // last byte for parsing, 1 for speed control
       break;
 //    case 'f':
 //      cruiseSpeedUp();

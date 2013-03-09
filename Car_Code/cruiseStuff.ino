@@ -5,33 +5,45 @@
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
-void initCruise(char mode, char speedControl)
+void parseCruise()
 {
-  if(mode == '0')
+  Serial.print("data: ");
+  Serial.println(data);
+  Serial.print("data[PACKET_LEN]:");
+  Serial.println(data[PACKET_LEN]);
+  if(data[PACKET_LEN] == 0)
   {
-    if(cruiseControl)
-    {
-      cruiseControl = false;            // cruise was on, now turn off
-      savedSpeed = -1;                  // reset the defalut saved speed
-      Serial.println("c000000000000");  // tell controller cruise is off
-    }
-    else
-    {
-      cruiseControl = true;             // cruise is not on, turn on
-      savedSpeed = lastSpeed;        // save the current speed       
-      motorControl(savedSpeed);         // tell motor to go that speed
-      Serial.println("c000000000001");  // tell controller cruise is on
-    }
+    initCruise();
+  }
+  
+  // Make sure
+  if((cruiseControl) && (data[1] == 1))
+  {
+    cruiseSpeedUp();
+  }
+  
+  if((cruiseControl) && (data[1] == 2))
+  {
+    cruiseSpeedDown();
+  }
+}// end parseCruise
+
+void initCruise()
+{
+  if(cruiseControl)
+  {
+    cruiseControl = false;            // cruise was on, now turn off
+    savedSpeed = -1;                  // reset the defalut saved speed
+    Serial.println("**c000000000000");  // tell controller cruise is off
   }
   else
   {
-    if(speedControl == '1')
-      cruiseSpeedUp();
-    if(speedControl == '2')
-      cruiseSpeedDown();
+    cruiseControl = true;             // cruise is not on, turn on
+    savedSpeed = lastSpeed;        // save the current speed       
+    motorControl(savedSpeed);         // tell motor to go that speed
+    Serial.println("**c000000000001");  // tell controller cruise is on
   }
 }//end initCruise
-
 
 void cruiseSpeedUp()
 {
@@ -42,7 +54,7 @@ void cruiseSpeedUp()
       savedSpeed = savedSpeed + 20;
     }
   }
-}
+}// end cruiseSpeedUp
 
 
 void cruiseSpeedDown()
@@ -54,4 +66,4 @@ void cruiseSpeedDown()
       savedSpeed = savedSpeed - 20;
     }
   }
-}
+}// end cruiseSpeedDown
