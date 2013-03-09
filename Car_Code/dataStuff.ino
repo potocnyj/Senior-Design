@@ -47,14 +47,14 @@ void gateKeeper()
       steerControl(steerParse());        // steering
       break;
     case 'c': // cruise control
-      initCruise();
+      initCruise(data[PACKET_LEN], data[1]);  // last byte for parsing, 1 for speed control
       break;
-    case 'f':
-      cruiseSpeedUp();
-      break;
-    case 's':
-      cruiseSpeedDown();
-      break;
+//    case 'f':
+//      cruiseSpeedUp();
+//      break;
+//    case 's':
+//      cruiseSpeedDown();
+//      break;
     case 'l':
       signalButtonPressed(leftSignal);
       break;

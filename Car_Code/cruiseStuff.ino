@@ -5,20 +5,30 @@
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
-void initCruise()
+void initCruise(char mode, char speedControl)
 {
-  if(cruiseControl)
+  if(mode == '0')
   {
-    cruiseControl = false;            // cruise was on, now turn off
-    savedSpeed = -1;                  // reset the defalut saved speed
-    Serial.println("c000000000000");  // tell controller cruise is off
+    if(cruiseControl)
+    {
+      cruiseControl = false;            // cruise was on, now turn off
+      savedSpeed = -1;                  // reset the defalut saved speed
+      Serial.println("c000000000000");  // tell controller cruise is off
+    }
+    else
+    {
+      cruiseControl = true;             // cruise is not on, turn on
+      savedSpeed = lastSpeed;        // save the current speed       
+      motorControl(savedSpeed);         // tell motor to go that speed
+      Serial.println("c000000000001");  // tell controller cruise is on
+    }
   }
   else
   {
-    cruiseControl = true;             // cruise is not on, turn on
-    savedSpeed = lastSpeed;        // save the current speed       
-    motorControl(savedSpeed);         // tell motor to go that speed
-    Serial.println("c000000000001");  // tell controller cruise is on
+    if(speedControl == '1')
+      cruiseSpeedUp();
+    if(speedControl == '2')
+      cruiseSpeedDown();
   }
 }//end initCruise
 

@@ -50,10 +50,12 @@ void loop() {
     }
      if(Xbox.buttonPressed) {
       if(Xbox.getButton(UP)) {
-//will most likely increment cruise control
-      }      
+//increment cruise control
+        Serial.println("**c100000000001");
+        }      
       if(Xbox.getButton(DOWN)) {
-//will most likely decrement cruise control
+//decrement cruise control
+        Serial.println("**c20000000001");
       }
       if(Xbox.getButton(LEFT)) {
 //will scroll in lcd screen
@@ -72,6 +74,7 @@ void loop() {
       if(Xbox.getButton(L1))
         Serial.println("**c000000000000");
        //will set cruise control
+
       if(Xbox.getButton(R1))
         //Serial.print(F(" - R1"));
         //currently unused
@@ -98,5 +101,7 @@ void loop() {
     } 
   }
   delay(10);
-}
+//  getRSSI();
+  
+}// end loop (i hope)
 

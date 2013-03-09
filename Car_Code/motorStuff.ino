@@ -55,7 +55,6 @@ void neutralEngine()
   motor.writeMicroseconds(MOTOR_NEU);
 }//end neutralEngine    
 
-
 void motorAlphaControl()
 {
   int requestedMotorSpeed = motorParse();
