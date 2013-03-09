@@ -16,7 +16,7 @@
  */
 
 #include "XBOXUSB.h"
-#define DEBUG // Uncomment to print data for debugging
+//#define DEBUG // Uncomment to print data for debugging
 //#define EXTRADEBUG // Uncomment to get even more debugging data
 //#define PRINTREPORT // Uncomment to print the report send by the Xbox 360 Controller
 
@@ -293,6 +293,7 @@ uint8_t XBOXUSB::getButton(Button b) {
             return 0;
     }
 }
+
 int16_t XBOXUSB::getAnalogHat(AnalogHat a) {
     if (readBuf == NULL)
         return 0;
@@ -304,6 +305,7 @@ void XBOXUSB::XboxCommand(uint8_t* data, uint16_t nbytes) {
     //bmRequest = Host to device (0x00) | Class (0x20) | Interface (0x01) = 0x21, bRequest = Set Report (0x09), Report ID (0x00), Report Type (Output 0x02), interface (0x00), datalength, datalength, data)
     pUsb->ctrlReq(bAddress,epInfo[XBOX_CONTROL_PIPE].epAddr, bmREQ_HID_OUT, HID_REQUEST_SET_REPORT, 0x00, 0x02, 0x00, nbytes, nbytes, data, NULL);
 }
+
 void XBOXUSB::setLedOn(LED l) {
     if(l == ALL) // All LEDs can't be on a the same time
         return;
