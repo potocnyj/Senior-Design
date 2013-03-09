@@ -13,6 +13,7 @@ char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 boolean success;
 boolean collisionNear = false;
 
+
 void setup()
 {
   motorSetup();                     // initalize motor
@@ -30,5 +31,3 @@ void loop()
   motorAlphaControl();
   t.update();
 }// end loop
-
-

@@ -5,6 +5,7 @@
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
+
 void parseCruise()
 {
   Serial.print("data: ");
@@ -28,6 +29,7 @@ void parseCruise()
   }
 }// end parseCruise
 
+
 void initCruise()
 {
   if(cruiseControl)
@@ -44,6 +46,7 @@ void initCruise()
     Serial.println("**c000000000001");  // tell controller cruise is on
   }
 }//end initCruise
+
 
 void cruiseSpeedUp()
 {

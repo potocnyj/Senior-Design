@@ -10,6 +10,7 @@
 // Odometer value length
 #define ODOM_ADD_END    4
 
+
 unsigned long readOdom()
 {
   byte value = 0;

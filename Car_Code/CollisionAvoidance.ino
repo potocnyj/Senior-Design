@@ -8,8 +8,10 @@
 // the car's collision avoidance system is pin A0
 #define DIST_SENSE_PIN  A0
 
+
 // Check our sensor, determine if an object is near.
-int checkDistance() {
+int checkDistance() 
+{
   // put your main code here, to run repeatedly: 
   int distance = analogRead(DIST_SENSE_PIN);
   
@@ -17,6 +19,7 @@ int checkDistance() {
   
   return distance;  
 }
+
 
 // Check for close object, kill engine if detected.
 boolean collisionImminent()

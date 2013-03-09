@@ -7,9 +7,9 @@
 #define DRIVE_LOW         -32768
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-
 int leftSignal = 13;
 int rightSignal = 8;
+
 
 // This will process all the data for us
 void checkSerial()
@@ -24,6 +24,7 @@ void checkSerial()
         {
           data[i] = Serial.read();
         }
+
         if(dataValid())
         {
           gateKeeper();
@@ -38,31 +39,25 @@ void gateKeeper()
 {
   switch(MSB())
   {
-  // Drive case 
-    case 'd':
-      // the drive packet is 13 bytes long.  first char is identifier 
-      // next 6 chars is throttle position, the last 6 are steering
-      // position.
-      motorAlphaControl();        // engine
-      steerControl(steerParse());        // steering
-      break;
-    case 'c': // cruise control
-      parseCruise();  // last byte for parsing, 1 for speed control
-      break;
-//    case 'f':
-//      cruiseSpeedUp();
-//      break;
-//    case 's':
-//      cruiseSpeedDown();
-//      break;
-    case 'l':
-      signalButtonPressed(leftSignal);
-      break;
-    case 'r':
-      signalButtonPressed(rightSignal);
-      break;
-    default:
-      break;
+    // Drive case 
+  case 'd':
+    // the drive packet is 13 bytes long.  first char is identifier 
+    // next 6 chars is throttle position, the last 6 are steering
+    // position.
+    motorAlphaControl();          // engine
+    steerControl(steerParse());   // steering
+    break;
+  case 'c': // cruise control
+    parseCruise();  // last byte for parsing, 1 for speed control
+    break;
+  case 'l':
+    signalButtonPressed(leftSignal);
+    break;
+  case 'r':
+    signalButtonPressed(rightSignal);
+    break;
+  default:
+    break;
   }
 }// end gateKeeper
 
@@ -83,11 +78,12 @@ boolean dataValid()
       if(!(((int)data[0] >= 48) && ((int)data[0] >= 57)))    // if data != number, return false
         return false;
     }
-    
+
     return true;
   }
-  
+
   return false;
 }// end dataValid
+
 
 
