@@ -5,30 +5,29 @@
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
-
-void parseCruise()
+void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
 {
-  Serial.print("data: ");
-  Serial.println(data);
-  Serial.print("data[PACKET_LEN]:");
   Serial.println(data[PACKET_LEN]);
-  if(data[PACKET_LEN] == 0)
+  
+  if(cruiseControlBit == '0') // if its 0, toggle cruise control
   {
     initCruise();
   }
-  
+   Serial.print("SavedSpeed: ");
+   Serial.println(savedSpeed);
   // Make sure
-  if((cruiseControl) && (data[1] == 1))
+  if((cruiseControl) && (cruiseSpeedBit == '1')) // if cruise is on, and bit is 1, incrument cruise
   {
     cruiseSpeedUp();
+    Serial.println("cruiseSpeedUp called");
   }
   
-  if((cruiseControl) && (data[1] == 2))
+  if((cruiseControl) && (cruiseSpeedBit == '2'))
   {
     cruiseSpeedDown();
+    Serial.println("CruiseSPeedDown called");
   }
 }// end parseCruise
-
 
 void initCruise()
 {
@@ -41,12 +40,11 @@ void initCruise()
   else
   {
     cruiseControl = true;             // cruise is not on, turn on
-    savedSpeed = lastSpeed;        // save the current speed       
+    savedSpeed = lastSpeed;           // set the cruise speed as the last known good speed      
     motorControl(savedSpeed);         // tell motor to go that speed
     Serial.println("**c000000000001");  // tell controller cruise is on
   }
 }//end initCruise
-
 
 void cruiseSpeedUp()
 {

@@ -55,29 +55,33 @@ void neutralEngine()
   motor.writeMicroseconds(MOTOR_NEU);
 }//end neutralEngine    
 
-
 void motorAlphaControl()
 {
   int requestedMotorSpeed = motorParse();
   
-  if(requestedMotorSpeed != 0)
+  if(requestedMotorSpeed != 0) // from controller: -3768 or something is full reverse, while 3768 or something is full forward
   {
-    lastSpeed = requestedMotorSpeed;
+    lastSpeed = requestedMotorSpeed;  // last good speed.
   }
   
   if(!cruiseControl)            // if cruise control if off
   {
-    motorControl(requestedMotorSpeed);
+    motorControl(requestedMotorSpeed);  // use the requested motor speed
   }
   else                          // cruise control is on
   {
-    if(requestedMotorSpeed > savedSpeed) // inadvertently prevents reverse :(
-    {
+    if(requestedMotorSpeed > savedSpeed) // if user wants to go faster than cruise is going, let them
+    {                                    // inadvertently prevents reverse :(
       motorControl(requestedMotorSpeed);
     }
     else
     {
-      motorControl(savedSpeed);
+      motorControl(savedSpeed); // otherwise use cruise control speed
+    }
+    
+    if(requestedMotorSpeed < -1) // if user tries to put in reverse, stop cruise control
+    {
+      cruiseControl = false;
     }
   } 
 }//end motorAlphaControl
