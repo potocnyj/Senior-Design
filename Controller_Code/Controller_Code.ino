@@ -81,9 +81,6 @@ void pollJoySticks()
   }
 }
 
-
-boolean r2 = false;
-boolean l2 = false;
 void pollButtons()
 {
   if(Xbox.getButton(UP)) {
@@ -112,34 +109,32 @@ void pollButtons()
     //potentially do not use, not very responsive but might have been led issues
   }
 
-  if(Xbox.getButton(L1))
+  if(Xbox.getButton(L1)){
     Serial.println("**c000000000000");
     //will set cruise control
-
-  if(Xbox.getButton(A))
-    Serial.println("**a000000000000");
-    
-  if(Xbox.getButton(B))
-    Serial.println("**b000000000000");
-    
-  if(Xbox.getButton(X))
-    Serial.println("**x000000000000");
-    
-  if(Xbox.getButton(Y))
-    Serial.println("**y000000000000");
-
-  if(Xbox.getButton(L2) && !l2)
-  {
-    Serial.println("**l000000000000");
-    l2 = true;
   }
-  else { l2 = false; }
   
-  if(Xbox.getButton(R2) && !r2)
-  {
-    Serial.println("**r000000000000");
-    r2 = true;
+  if(Xbox.getButton(A)){
+    Serial.println("**a000000000000");
   }
-  else { r2 = false; }
+  
+  if(Xbox.getButton(B)){
+    Serial.println("**b000000000000");
+  }
+  
+  if(Xbox.getButton(X)){
+    Serial.println("**x000000000000");
+  }
+  
+  if(Xbox.getButton(Y)){
+    Serial.println("**y000000000000");
+  }
+  
+  if(Xbox.getButton(L2) == 255) {
+    Serial.println("**l000000000000");
+  }
+  if(Xbox.getButton(R2) == 255) {
+    Serial.println("**r000000000000");
+  } 
 }
 
