@@ -1,59 +1,31 @@
-#define HALL_PIN 5
+
 #define WHEEL_CIRCUM 12.17367
 #define ROT_TIMEOUT 5000        // if it takes more than 5 seconds to rotate the tire, then dont count it
+#define DIST_UPDATE_RATE  4
 
-long timerA = 0;
-long timerB = 0;
+int oldRevCount = 0;
+byte updateDistCount = 0;
 boolean timerSelect = true;
 
 
-/*
- * this is the ISR for the HAL effect sensor.  
- * It alternates between updataing 2 timers
- * that should be it to keep it quick
-*/
-void pulseDetected()
+void speedUpdate()
 {
-  if(timerSelect)
+  // use this to update the odometer
+  if(updateDistCount >= DIST_UPDATE_RATE)      // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
   {
-    timerA = millis();
-    timerSelect = false;
+    updateDistCount = 0;
   }
-  else
-  {
-    timerB = millis();
-    timerSelect = true;
-  }
-}// end pulseDetected
+  // NOTE: units are inches per second (In/S)
+  Serial.print("in/S: ");
+  Serial.println(((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)); // distance * time (milliseconds/1000 == second
+  oldRevCount = revCount;
+  updateDistCount++;
+}// end speedUpdate
 
-float calcRPM()
+void writeDist()
 {
-  int time = (timerA - timerB);
-  if (abs(time) <= ROT_TIMEOUT)
-  {
-    if(timerSelect) // timerA just updated
-    {
-      return (timerA - timerB) / 1000;
-    }
-    else            // timerB just updated
-    {
-      return (timerB - timerA) / 1000;
-    }
-  }
-}// end calcRPM
-
-float calcSpeed()
-{
-  int time = (timerA - timerB);
-  if (abs(time) <= ROT_TIMEOUT)      // make sure it hasnt been stopped for quite a while
-  {
-    if(timerSelect)  // timerA just updated
-    {
-      return (timerA - timerB) * WHEEL_CIRCUM;
-    }
-    else            // timerB just updated
-    {
-      return (timerB - timerA) * WHEEL_CIRCUM;
-    }
-  }
-}//end calcSpeed
+  unsigned long dist = (revCount * WHEEL_CIRCUM);
+  Serial.print("Odo: ");
+  Serial.println(dist);
+  writeOdom(dist);
+}// end writeDist

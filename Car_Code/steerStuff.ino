@@ -7,7 +7,6 @@
 Servo steer;
 int steerPos;
 
-
 // sets up the steer stuff for us
 void steerSetup()
 {

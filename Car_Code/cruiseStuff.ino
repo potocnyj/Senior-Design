@@ -16,13 +16,13 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
    Serial.print("SavedSpeed: ");
    Serial.println(savedSpeed);
   // Make sure
-  if((cruiseControl) && (cruiseSpeedBit == '1')) // if cruise is on, and bit is 1, incrument cruise
+  if((cruiseControl) && (cruiseSpeedBit == '1') && (cruiseControlBit == '1')) // if cruise is on, and bit is 1, incrument cruise
   {
     cruiseSpeedUp();
     Serial.println("cruiseSpeedUp called");
   }
   
-  if((cruiseControl) && (cruiseSpeedBit == '2'))
+  if((cruiseControl) && (cruiseSpeedBit == '2') && (cruiseControlBit == '1'))
   {
     cruiseSpeedDown();
     Serial.println("CruiseSPeedDown called");

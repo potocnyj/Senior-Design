@@ -59,6 +59,11 @@ void motorAlphaControl()
 {
   int requestedMotorSpeed = motorParse();
   
+  if(requestedMotorSpeed >= 0)    // if going forward
+    inReverse = false;
+  else                            // if going backwards
+    inReverse = false;
+  
   if(requestedMotorSpeed != 0) // from controller: -3768 or something is full reverse, while 3768 or something is full forward
   {
     lastSpeed = requestedMotorSpeed;  // last good speed.
