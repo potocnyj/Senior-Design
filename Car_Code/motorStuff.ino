@@ -1,8 +1,5 @@
 // Motor Stuff
 #define MOTOR_PIN    6
-#define MOTOR_MAX    1700  // Should work to 2000, but scary on a table
-#define MOTOR_MIN    1300  // should work to 1000, but scary on a table
-#define MOTOR_NEU    1500
 
 Servo motor;
 int engineSpeed;
@@ -54,6 +51,7 @@ void neutralEngine()
 {
   motor.writeMicroseconds(MOTOR_NEU);
 }//end neutralEngine    
+
 
 void motorAlphaControl()
 {

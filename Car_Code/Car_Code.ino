@@ -8,6 +8,9 @@
 #define PACKET_LEN    12
 #define HALL_PIN      7
 #define BAUD_RATE     9600
+#define MOTOR_MAX    1700  // Should work to 2000, but scary on a table
+#define MOTOR_MIN    1300  // should work to 1000, but scary on a table
+#define MOTOR_NEU    1500
 
 Timer t;
 int i;

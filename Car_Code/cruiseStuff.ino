@@ -1,7 +1,3 @@
-#include <motorStuff>
-#define MOTOR_MAX    1700  // Should work to 2000, but scary on a table
-#define MOTOR_MIN    1300  // should work to 1000, but scary on a table
-
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
@@ -29,6 +25,7 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
   }
 }// end parseCruise
 
+
 void initCruise()
 {
   if(cruiseControl)
@@ -45,6 +42,7 @@ void initCruise()
     Serial.println("**c000000000001");  // tell controller cruise is on
   }
 }//end initCruise
+
 
 void cruiseSpeedUp()
 {

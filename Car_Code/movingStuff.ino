@@ -1,4 +1,3 @@
-
 #define WHEEL_CIRCUM 12.17367
 #define ROT_TIMEOUT 5000        // if it takes more than 5 seconds to rotate the tire, then dont count it
 #define DIST_UPDATE_RATE  4
@@ -21,6 +20,7 @@ void speedUpdate()
   oldRevCount = revCount;
   updateDistCount++;
 }// end speedUpdate
+
 
 void writeDist()
 {
