@@ -1,8 +1,14 @@
 #include <XBOXUSB.h>
+#include <SoftwareSerial.h>
+
+#define PACKET_LEN    12
 
 USB Usb;
 XBOXUSB Xbox(&Usb);
+char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 int neutral = 1;
+int carSpeed = 0;
+int odom = 0;
 
 
 void setup() {
@@ -12,6 +18,8 @@ void setup() {
   {
     while(1); //halt
   }  
+    
+  bootScreen();
 }
 
 
@@ -94,15 +102,15 @@ void pollButtons()
   }
   
   if(Xbox.getButton(LEFT)) {
-    //will scroll in lcd screen
+    previousDisplay();
   }
   
   if(Xbox.getButton(RIGHT)) {
-    //will scroll on lcd screen
+    nextDisplay();
   }
 
   if(Xbox.getButton(START)) {
-    //no idea what this will do yet
+    //nothing yet
   }
   
   if(Xbox.getButton(BACK)) {
@@ -136,5 +144,7 @@ void pollButtons()
   if(Xbox.getButton(R2) == 255) {
     Serial.println("**r000000000000");
   } 
+  
+  updateDisplay();
 }
 
