@@ -72,7 +72,7 @@ boolean dataValid()
 {
   if(((int)data[0] >= 97) && ((int)data[0] <= 122)) // first char is a lowercase letter
   {
-    for(i = 0; i <= DATA_LEN; i++)
+    for(int i = 0; i <= DATA_LEN; i++)
     {
       if(!(((int)data[0] >= 48) && ((int)data[0] >= 57)))    // if data != number, return false
         return false;

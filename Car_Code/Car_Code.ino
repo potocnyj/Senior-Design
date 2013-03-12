@@ -13,7 +13,6 @@
 #define MOTOR_NEU    1500
 
 Timer t;
-int i;
 int lastSpeed;
 int revCount = 1;
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
