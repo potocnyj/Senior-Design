@@ -7,7 +7,7 @@
 // The distance sensor for 
 // the car's collision avoidance system is pin A0
 #define DIST_SENSE_PIN  A0
-
+#define MIN_DIST_CM     100
 
 // Check our sensor, determine if an object is near.
 int checkDistance() 
@@ -27,7 +27,7 @@ boolean collisionImminent()
   int nearestObject = checkDistance();
   
   // Is the nearest object < 100cm away?
-  if(nearestObject < 100)
+  if(nearestObject < MIN_DIST_CM)
   {
     neutralEngine();
     return true;
