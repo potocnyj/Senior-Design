@@ -44,7 +44,8 @@ void gateKeeper()
         toggleCruise(dataIn[PACKET_LEN]);
       }
       break;
-    case 'l':
+    case 's':
+        updateCurrentSpeed(dataIn);
       break;
     case 'r':
       break;

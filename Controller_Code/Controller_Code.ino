@@ -10,6 +10,8 @@ char dataOut[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 int neutral = 1;
 int carSpeed = 0;
 int odom = 0;
+int speedInFTS = 0;
+int speedInScaled = 0;
 boolean cruise = false;
 
 
@@ -167,4 +169,9 @@ void toggleCruise(char cruiseDataalskd)
   updateDisplay();
 }
 
+void updateCurrentSpeed(char speedInfo[])
+{ 
+  speedInFTS = atoi(speedInfo);
+  speedInScaled = speedInFTS * 6.82;
+}
 

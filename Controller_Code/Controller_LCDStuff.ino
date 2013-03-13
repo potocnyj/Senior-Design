@@ -83,7 +83,6 @@ void previousDisplay()
 void displaySpeedODOinFeet()
 {
   clear_lcd();
-  int speedInFTS = 3984;
   int currentODOft = 1231;
   
   //top line
@@ -106,7 +105,6 @@ void displaySpeedODOinScaled()
 {
   clear_lcd();
   
-  int speedInScaled = 40;
   int currentODOScaled = 10000;
   
   //top line
