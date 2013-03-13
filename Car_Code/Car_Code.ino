@@ -12,6 +12,9 @@
 #define MOTOR_MIN    1300        // should work to 1000, but scary on a table
 #define MOTOR_NEU    1500
 
+const int leftSignal = 13;
+const int rightSignal = 8;
+
 Timer t;
 int lastSpeed;
 int revCount = 1;
@@ -30,9 +33,8 @@ void setup()
   motorSetup();                     // initalize motor
   steerSetup();                     // initalize steer
   Serial.begin(BAUD_RATE);          // start serial
-  pinMode(13, OUTPUT);
-  pinMode(8, OUTPUT);
-
+  initSignals();
+  
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt  
   digitalWrite(HALL_PIN, HIGH);
@@ -48,7 +50,6 @@ void loop()
   motorAlphaControl();
   t.update();
 }// end loop
-
 
 
 // here lies the ISR for the wheel. KISS

@@ -7,8 +7,7 @@
 #define DRIVE_LOW         -32768
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-int leftSignal = 13;
-int rightSignal = 8;
+
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
 // This will process all the data for us

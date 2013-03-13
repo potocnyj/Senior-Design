@@ -5,6 +5,11 @@ int signalOn = 0;
 boolean ledOn = false;
 int tickEvent;
 
+void initSignals()
+{
+  pinMode(leftSignal, OUTPUT);
+  pinMode(rightSignal, OUTPUT);
+}
 
 void signalButtonPressed(int input)
 {
