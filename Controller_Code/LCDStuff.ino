@@ -129,12 +129,11 @@ void displayCruiseData()
 {
   clear_lcd();
   int speedInScaled = 123;
-  boolean cruiseControl = true;
   
   //top line
   sLCD.print("CRUISE: ");
   
-  if(cruiseControl)
+  if(cruise)
   {
     sLCD.print("ON");
     

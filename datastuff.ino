@@ -39,6 +39,7 @@ void gateKeeper()
   switch(MSB())
   {
     case 'c': // cruise control
+      //toggleCruise(data[PACKET_LEN]);
       break;
     case 'l':
       break;

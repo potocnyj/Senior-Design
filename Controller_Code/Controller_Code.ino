@@ -9,11 +9,13 @@ char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 int neutral = 1;
 int carSpeed = 0;
 int odom = 0;
+boolean cruise = false;
 
 
 void setup() {
   Serial.begin(9600);
-
+  init_Display();
+  
   if (Usb.Init() == -1)
   {
     while(1); //halt
@@ -36,9 +38,10 @@ void loop()
     } 
   }
   
-  delay(10);
+ // checkSerial();
+  getRSSI();
   
-  getRSSI();  
+  delay(10);
 }// end loop
 
 
@@ -146,5 +149,18 @@ void pollButtons()
   } 
   
   updateDisplay();
+}
+
+void toggleCruise(char Data)
+{
+  // 1 signals cruise is on, 0 s off
+  if(Data == '1')
+  {
+    cruise = true;
+  }
+  else if (Data == '0')
+  {
+    cruise = false; 
+  }
 }
 
