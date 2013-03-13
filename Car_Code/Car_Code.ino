@@ -4,19 +4,19 @@
 #include <Timer.h>
 #include <PinChangeInt.h>
 
-#define SPEED_UPDATE_TIME  250    // time in mS to update the speed
+#define SPEED_UPDATE_TIME  250   // time in mS to update the speed
 #define PACKET_LEN    12
 #define HALL_PIN      7
 #define BAUD_RATE     9600
-#define MOTOR_MAX    1700  // Should work to 2000, but scary on a table
-#define MOTOR_MIN    1300  // should work to 1000, but scary on a table
+#define MOTOR_MAX    1700        // Should work to 2000, but scary on a table
+#define MOTOR_MIN    1300        // should work to 1000, but scary on a table
 #define MOTOR_NEU    1500
 
 Timer t;
 int lastSpeed;
 int revCount = 1;
-volatile int revCounter = 0;       // used to count # of forward revolutions of wheel
-boolean inReverse = false;      // used to ensure revCount only gets updated when going forward
+volatile int revCounter = 0;     // used to count # of forward revolutions of wheel
+boolean inReverse = false;       // used to ensure revCount only gets updated when going forward
 
 // Collision Avoidance
 boolean collisionNear = false;

@@ -13,20 +13,40 @@ void speedUpdate()
   if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
   {
     updateDistCount = 0;
+    writeDist();
   }
-  // NOTE: units are inches per second (In/S)
-//  Serial.print("in/S: ");
-//  Serial.println(((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)); // distance * time (milliseconds/1000 == second
-  oldRevCount = revCount;
-  updateDistCount++;
   
+  // NOTE: units are inches per second (Ft/S)
+  // distance * time (milliseconds/1000 == second  
+  String carSpeed = (String)((int)(((revCount - oldRevCount) * WHEEL_CIRCUM * ((float)SPEED_UPDATE_TIME / 1000.0f))) / 12);
+  carSpeed = zeroPadVar(carSpeed, 12);
+  // (int)(((((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)) / 12));
+  Serial.println("**s" + carSpeed);
+
+  oldRevCount = revCount;
+  updateDistCount++;  
 }// end speedUpdate
 
 
 void writeDist()
 {
-  unsigned long dist = (revCount * WHEEL_CIRCUM);
-//  Serial.print("Odo: ");
-//  Serial.println(dist);
+  unsigned long dist = (revCount * WHEEL_CIRCUM / 12);
+  String distString = (String)dist;
+  distString = zeroPadVar(distString, 12);
+  
+  Serial.println("**o" + distString);
+  
   writeOdom(dist);
 }// end writeDist
+
+
+String zeroPadVar(String input, int length)
+{
+  String val = input;
+  while(val.length() < length)
+  {
+    val = "0" + val;
+  }
+  
+  return val;
+}
