@@ -5,7 +5,8 @@
 
 USB Usb;
 XBOXUSB Xbox(&Usb);
-char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
+char dataIn[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
+char dataOut[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 int neutral = 1;
 int carSpeed = 0;
 int odom = 0;
@@ -20,7 +21,7 @@ void setup() {
   {
     while(1); //halt
   }  
-    
+  
   bootScreen();
 }
 
@@ -38,8 +39,8 @@ void loop()
     } 
   }
   
- // checkSerial();
-  getRSSI();
+  checkSerial();
+  //getRSSI();
   
   delay(10);
 }// end loop
@@ -75,11 +76,11 @@ void pollJoySticks()
       }   
     } 
 
-    String data = "**d" + yval + xval;
-    if(data.length() == 15)
+    String dataOut = "**d" + yval + xval;
+    if(dataOut.length() == 15)
     {
       delay(1);
-      Serial.println(data);
+      Serial.println(dataOut);
     }
   }
   else
@@ -101,7 +102,7 @@ void pollButtons()
   
   if(Xbox.getButton(DOWN)) {
     //decrement cruise control
-    Serial.println("**c20000000001");
+    Serial.println("**c200000000001");
   }
   
   if(Xbox.getButton(LEFT)) {
@@ -151,16 +152,19 @@ void pollButtons()
   updateDisplay();
 }
 
-void toggleCruise(char Data)
+void toggleCruise(char cruiseDataalskd)
 {
   // 1 signals cruise is on, 0 s off
-  if(Data == '1')
+  if(cruiseDataalskd == '1')
   {
     cruise = true;
   }
-  else if (Data == '0')
+  else if (cruiseDataalskd == '0')
   {
     cruise = false; 
   }
+  
+  updateDisplay();
 }
+
 

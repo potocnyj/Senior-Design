@@ -4,5 +4,5 @@
 void getRSSI()
 {
   long RSSIVal = pulseIn(RSSI_PIN, LOW, RSSI_TIMEOUT);
-  Serial.println(RSSIVal);
+  //Serial.println(RSSIVal);
 }
