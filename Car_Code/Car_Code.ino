@@ -17,10 +17,14 @@ int lastSpeed;
 int revCount = 1;
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 volatile int revCounter = 0;       // used to count # of forward revolutions of wheel
-boolean success;
 boolean inReverse = false;      // used to ensure revCount only gets updated when going forward
+
+// Collision Avoidance
 boolean collisionNear = false;
 
+// Cruise Control Vars
+boolean  cruiseControl = false;
+int      savedSpeed = -1;
 
 void setup()
 {
@@ -51,6 +55,4 @@ void ISR_hall()
 {
   if(!inReverse) // do not update the counter if you are going backwards.
     revCount++;
-  Serial.print("RevCount: ");
-  Serial.println(revCount);
 }

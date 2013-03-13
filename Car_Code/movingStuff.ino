@@ -15,8 +15,8 @@ void speedUpdate()
     updateDistCount = 0;
   }
   // NOTE: units are inches per second (In/S)
-  Serial.print("in/S: ");
-  Serial.println(((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)); // distance * time (milliseconds/1000 == second
+//  Serial.print("in/S: ");
+//  Serial.println(((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)); // distance * time (milliseconds/1000 == second
   oldRevCount = revCount;
   updateDistCount++;
 }// end speedUpdate
@@ -25,7 +25,7 @@ void speedUpdate()
 void writeDist()
 {
   unsigned long dist = (revCount * WHEEL_CIRCUM);
-  Serial.print("Odo: ");
-  Serial.println(dist);
+//  Serial.print("Odo: ");
+//  Serial.println(dist);
   writeOdom(dist);
 }// end writeDist

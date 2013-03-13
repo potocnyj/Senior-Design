@@ -1,16 +1,10 @@
-boolean  cruiseControl = false;
-int      savedSpeed = -1;
-
 void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
-{
-  Serial.println(data[PACKET_LEN]);
-  
+{  
   if(cruiseControlBit == '0') // if its 0, toggle cruise control
   {
     initCruise();
   }
-   Serial.print("SavedSpeed: ");
-   Serial.println(savedSpeed);
+
   // Make sure
   if((cruiseControl) && (cruiseSpeedBit == '1') && (cruiseControlBit == '1')) // if cruise is on, and bit is 1, incrument cruise
   {
@@ -21,7 +15,7 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
   if((cruiseControl) && (cruiseSpeedBit == '2') && (cruiseControlBit == '1'))
   {
     cruiseSpeedDown();
-    Serial.println("CruiseSPeedDown called");
+    Serial.println("cruiseSpeedDown called");
   }
 }// end parseCruise
 

@@ -47,7 +47,7 @@ void gateKeeper()
       steerControl(steerParse());        // steering
       break;
     case 'c': // cruise control
-      parseCruise(data[12], data[1]);  // last byte for parsing, 1 for speed control
+      parseCruise(data[1], data[PACKET_LEN]);  // last byte for parsing, 1 for speed control
       break;
     case 'l':
       signalButtonPressed(leftSignal);
@@ -83,5 +83,3 @@ boolean dataValid()
   
   return false;
 }// end dataValid
-
-
