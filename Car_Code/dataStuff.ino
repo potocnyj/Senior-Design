@@ -1,10 +1,4 @@
-#define MOTOR_DATA_START  1
-#define MOTOR_DATA_END    6
-#define STEER_DATA_START  7
-#define STEER_DATA_END    12
 #define MSB_DATA          0
-#define DRIVE_HIGH        32768
-#define DRIVE_LOW         -32768
 #define DATA_LEN          6        // how many bytes the relevant data is
 
 

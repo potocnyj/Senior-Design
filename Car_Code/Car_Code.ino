@@ -4,6 +4,12 @@
 #include <Timer.h>
 #include <PinChangeInt.h>
 
+#define MOTOR_DATA_START  1
+#define MOTOR_DATA_END    6
+#define STEER_DATA_START  7
+#define STEER_DATA_END    12
+#define DRIVE_HIGH        32768
+#define DRIVE_LOW         -32768
 #define SPEED_UPDATE_TIME  250   // time in mS to update the speed
 #define PACKET_LEN    12
 #define HALL_PIN      7
