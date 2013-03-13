@@ -13,6 +13,7 @@ int odom = 0;
 int speedInFTS = 0;
 int speedInScaled = 0;
 boolean cruise = false;
+boolean scaled = false;
 
 
 void setup() {
@@ -43,6 +44,8 @@ void loop()
   
   checkSerial();
   //getRSSI();
+  
+ // updateDisplay();
   
   delay(10);
 }// end loop
@@ -137,7 +140,9 @@ void pollButtons()
   }
   
   if(Xbox.getButton(X)){
-    Serial.println("**x000000000000");
+    scaled = !scaled;
+    
+    updateDisplay();
   }
   
   if(Xbox.getButton(Y)){
@@ -150,28 +155,4 @@ void pollButtons()
   if(Xbox.getButton(R2) == 255) {
     Serial.println("**r000000000000");
   } 
-  
-  updateDisplay();
 }
-
-void toggleCruise(char cruiseDataalskd)
-{
-  // 1 signals cruise is on, 0 s off
-  if(cruiseDataalskd == '1')
-  {
-    cruise = true;
-  }
-  else if (cruiseDataalskd == '0')
-  {
-    cruise = false; 
-  }
-  
-  updateDisplay();
-}
-
-void updateCurrentSpeed(char speedInfo[])
-{ 
-  speedInFTS = atoi(speedInfo);
-  speedInScaled = speedInFTS * 6.82;
-}
-

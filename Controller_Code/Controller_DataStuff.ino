@@ -47,7 +47,8 @@ void gateKeeper()
     case 's':
         updateCurrentSpeed(dataIn);
       break;
-    case 'r':
+    case 'b':
+        updateBatteryInfo(dataIn);
       break;
     default:
       break;
@@ -77,4 +78,31 @@ boolean dataValid()
   
   return false;
 }// end dataValid
+
+
+void toggleCruise(char cruiseDataalskd)
+{
+  // 1 signals cruise is on, 0 s off
+  if(cruiseDataalskd == '1')
+  {
+    cruise = true;
+  }
+  else if (cruiseDataalskd == '0')
+  {
+    cruise = false; 
+  }
+  
+  updateDisplay();
+}
+
+void updateCurrentSpeed(char speedInfo[])
+{ 
+  speedInFTS = atoi(speedInfo);
+  speedInScaled = speedInFTS * 6.82;
+}
+
+void updateBatteryInfo(char batInfo[])
+{
+    
+}
 

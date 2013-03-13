@@ -23,14 +23,13 @@ void clear_lcd(void)
 
 void moveDisplay()
 {
-  if(currentDisplay >= 7)
+  if(currentDisplay >= 6)
   {
     currentDisplay = 1;
   }
-  
   else if(currentDisplay <= 0)
   {
-    currentDisplay = 6;
+    currentDisplay = 5;
   }
   
   updateDisplay();
@@ -39,28 +38,24 @@ void moveDisplay()
 
 void updateDisplay()
 {
-      switch(currentDisplay)
+  switch(currentDisplay)
   {
     case 1:
-      displaySpeedODOinFeet();
+      displaySpeedAODO();
       break;
     case 2:
-      displaySpeedODOinScaled();
-      break;
-    case 3:
       displayCruiseData();
       break;
-    case 4:
+    case 3:
       displayBatteryTime();
       break;
-    case 5:
+    case 4:
       displayBatteryDist();
       break;
-    case 6:
+    case 5:
       displayRange();
       break;
     default:
-      updateDisplay();
       break;
     }//end switch
 }
@@ -68,17 +63,28 @@ void updateDisplay()
 
 void nextDisplay()
 {
-  currentDisplay++;
+  Serial.println(++currentDisplay);
   moveDisplay();
 }
 
 
 void previousDisplay()
 {
-  currentDisplay--;
+  Serial.println(--currentDisplay);
   moveDisplay();
 }
 
+void displaySpeedAODO()
+{
+  if(scaled)
+  {
+    displaySpeedODOinScaled();
+  }
+  else
+  {
+    displaySpeedODOinFeet();
+  }
+}
 
 void displaySpeedODOinFeet()
 {
@@ -125,8 +131,45 @@ void displaySpeedODOinScaled()
 
 void displayCruiseData()
 {
+  if(scaled)
+  {
+    displayCruiseDataScaled();
+  }
+  else
+  {
+    displayCruiseDataFTS();
+  }
+}
+
+void displayCruiseDataFTS()
+{
   clear_lcd();
-  int speedInScaled = 123;
+  
+  //top line
+  sLCD.print("CRUISE: ");
+  
+  if(cruise)
+  {
+    sLCD.print("ON");
+    
+    //change line
+    sLCD.write(COMMAND);
+    sLCD.write(LINE1);
+  
+    //bottom line
+    sLCD.print("SPEED: ");
+    sLCD.print(speedInFTS);
+    sLCD.print(" ft/s");
+  }
+  else
+  {
+    sLCD.print("OFF");
+  }
+}
+
+void displayCruiseDataScaled()
+{
+  clear_lcd();
   
   //top line
   sLCD.print("CRUISE: ");
@@ -142,14 +185,13 @@ void displayCruiseData()
     //bottom line
     sLCD.print("SPEED: ");
     sLCD.print(speedInScaled);
-    sLCD.print(" ft/s");
+    sLCD.print(" MPH");
   }
   else
   {
     sLCD.print("OFF");
   }
 }
-
 
 void displayBatteryTime()
 {
@@ -224,218 +266,4 @@ void displayRangeWarning()
   sLCD.print("Dist: ");
   sLCD.print(rangeDistance);
   sLCD.print(" ft.");
-}
-
-
-void bootScreen()
-{
-  clear_lcd();
-  sLCD.print("   E");
-  delay(60);
-  sLCD.print("d");
-  delay(60);
-  sLCD.print("i");
-  delay(60);
-  sLCD.print("s");
-  delay(60);
-  sLCD.print("o");
-  delay(60);
-  sLCD.print("n");
-  
-    
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("       M");
-    delay(60);
-  sLCD.print("o");
-  delay(60);
-  sLCD.print("t");
-  delay(60);
-  sLCD.print("o");
-  delay(60);
-  sLCD.print("r");
-  delay(60);
-  sLCD.print("s");
-  
-  slideAway();
-}
-
-
-void slideAway()
-{
-    delay(1000);
- /* 
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("    Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("      Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("     Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("     Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("      Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("    Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("       Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("   Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("        Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("  Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("         Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print(" Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("          Edison");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("Motors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("           Ediso");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("otors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("            Edis");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("tors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("             Edi");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("ors");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("              Ed");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("rs");
-  
-  delay(60);
-  clear_lcd();
-  sLCD.write(COMMAND);
-  sLCD.write(LINE0);
-  
-  sLCD.print("               E");
-  
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("s");
-  
-  */
-  delay(60);
-  clear_lcd();
-
-  sLCD.print("       -1");
-  
-  delay(60);
-  clear_lcd();
-
-  sLCD.print("      C-17");
-  
-  delay(60);
-  clear_lcd();
-
-  sLCD.print("     CC-170");
-  
-  delay(60);
-  clear_lcd();
-
-  sLCD.print("    NCC-1701");
-  
-  delay(100);
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("  L/R for data");
-  
-  currentDisplay = 0;
-}  
-  
+} 
