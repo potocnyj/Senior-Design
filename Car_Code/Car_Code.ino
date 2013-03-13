@@ -15,7 +15,6 @@
 Timer t;
 int lastSpeed;
 int revCount = 1;
-char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 volatile int revCounter = 0;       // used to count # of forward revolutions of wheel
 boolean inReverse = false;      // used to ensure revCount only gets updated when going forward
 
@@ -49,6 +48,8 @@ void loop()
   motorAlphaControl();
   t.update();
 }// end loop
+
+
 
 // here lies the ISR for the wheel. KISS
 void ISR_hall()

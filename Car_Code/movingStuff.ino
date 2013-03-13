@@ -10,7 +10,7 @@ boolean timerSelect = true;
 void speedUpdate()
 {
   // use this to update the odometer
-  if(updateDistCount >= DIST_UPDATE_RATE)      // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
+  if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
   {
     updateDistCount = 0;
   }
@@ -19,6 +19,7 @@ void speedUpdate()
 //  Serial.println(((revCount - oldRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)); // distance * time (milliseconds/1000 == second
   oldRevCount = revCount;
   updateDistCount++;
+  
 }// end speedUpdate
 
 

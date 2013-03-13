@@ -2,13 +2,10 @@
 // Author: John Potocny
 // This code is used for the reading/writing of the car's 
 // internal odometer.
-
 #include <EEPROM.h>
 
-// Odometer starting address
-#define ODOM_ADD_START  1
-// Odometer value length
-#define ODOM_ADD_END    4
+#define ODOM_ADD_START  1    // Odometer starting address
+#define ODOM_ADD_END    4    // Odometer value length
 
 
 unsigned long readOdom()

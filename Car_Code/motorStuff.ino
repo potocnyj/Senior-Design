@@ -9,7 +9,7 @@ void motorSetup()
 {
   engineSpeed = MOTOR_NEU;
   motor.attach(MOTOR_PIN, MOTOR_MIN, MOTOR_MAX);    // setup min and max for the motor
-  motor.writeMicroseconds(engineSpeed);               // set motor for neutral  
+  motor.writeMicroseconds(engineSpeed);             // set motor for neutral  
 }// end motorSetup
 
 
@@ -23,6 +23,7 @@ int motorParse()
     dataOut[j] = data[i]; 
     j++;
   }
+  
   scaledValue = map(atoi(dataOut), DRIVE_LOW, DRIVE_HIGH, MOTOR_MIN, MOTOR_MAX);
   
   return scaledValue; // return the mapped value
@@ -67,11 +68,12 @@ void motorAlphaControl()
     lastSpeed = requestedMotorSpeed;  // last good speed.
   }
   
-  if(!cruiseControl)            // if cruise control if off
+  // if cruise control if off
+  if(!cruiseControl)
   {
     motorControl(requestedMotorSpeed);  // use the requested motor speed
   }
-  else                          // cruise control is on
+  else  // cruise control is on
   {
     if(requestedMotorSpeed > savedSpeed) // if user wants to go faster than cruise is going, let them
     {                                    // inadvertently prevents reverse :(

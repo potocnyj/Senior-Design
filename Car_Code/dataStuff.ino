@@ -7,9 +7,9 @@
 #define DRIVE_LOW         -32768
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-
 int leftSignal = 13;
 int rightSignal = 8;
+char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
 // This will process all the data for us
 void checkSerial()
@@ -24,6 +24,7 @@ void checkSerial()
         {
           data[i] = Serial.read();
         }
+        
         if(dataValid())
         {
           gateKeeper();
@@ -43,8 +44,8 @@ void gateKeeper()
       // the drive packet is 13 bytes long.  first char is identifier 
       // next 6 chars is throttle position, the last 6 are steering
       // position.
-      motorAlphaControl();        // engine
-      steerControl(steerParse());        // steering
+      motorAlphaControl();            // engine
+      steerControl(steerParse());     // steering
       break;
     case 'c': // cruise control
       parseCruise(data[1], data[PACKET_LEN]);  // last byte for parsing, 1 for speed control
