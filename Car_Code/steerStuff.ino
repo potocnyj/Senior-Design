@@ -7,6 +7,7 @@
 Servo steer;
 int steerPos;
 
+
 // sets up the steer stuff for us
 void steerSetup()
 {
@@ -36,8 +37,7 @@ int steerParse()
 void steerControl(int dataIn)
 {
   // write the turn ammount to the engine
-  steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);
-
+  steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);  
   if((steerPos >= minTurn) &&  (steerPos <= maxTurn))
   {
     steer.writeMicroseconds(steerPos);

@@ -27,6 +27,7 @@ int revCount = 1;
 volatile int revCounter = 0;     // used to count # of forward revolutions of wheel
 boolean inReverse = false;       // used to ensure revCount only gets updated when going forward
 
+
 // Collision Avoidance
 boolean collisionNear = false;
 

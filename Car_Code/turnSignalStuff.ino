@@ -1,7 +1,7 @@
 #include <motorStuff>
 #include <Timer.h>
 
-int signalOn = 0;
+
 boolean ledOn = false;
 int tickEvent;
 
