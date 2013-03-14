@@ -12,6 +12,10 @@ int carSpeed = 0;
 int odom = 0;
 int speedInFTS = 0;
 int speedInScaled = 0;
+int batDistFTS = 0;
+int batDistScaled = 0;
+int rangePercent = 0;
+int rangeDistanceFTS = 0;
 boolean cruise = false;
 boolean scaled = false;
 

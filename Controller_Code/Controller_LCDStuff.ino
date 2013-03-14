@@ -214,8 +214,20 @@ void displayBatteryTime()
 
 void displayBatteryDist()
 {
+  if(scaled)
+  {
+    displayBatteryDistScaled();
+  }
+  else
+  {
+    displayBatteryDistFTS();
+  }
+}
+
+void displayBatteryDistFTS()
+{
   clear_lcd();
-  int batTimeAmount = 1234;
+    
   //top line
   sLCD.print("Bat. Remaining:");
   
@@ -225,37 +237,43 @@ void displayBatteryDist()
   
   //bottom line
   sLCD.print("Dist: ");
-  sLCD.print(batTimeAmount);
-  sLCD.print(" m.");
+  sLCD.print(batDistFTS);
+  sLCD.print(" ft.");
+}
+
+void displayBatteryDistScaled()
+{
+  clear_lcd();
+  
+  //top line
+  sLCD.print("Bat. Remaining:");
+  
+  //change line
+  sLCD.write(COMMAND);
+  sLCD.write(LINE1);
+  
+  //bottom line
+  sLCD.print("Dist: ");
+  sLCD.print(batDistScaled);
+  sLCD.print(" m."); 
 }
 
 
 void displayRange()
 {
   clear_lcd();
-  int rangePercent = 78;
-  int rangeDistance = 200;
+  
   //top line
   sLCD.print("Sig Range: ");
   sLCD.print(rangePercent);
   sLCD.print("%");
-  
-  //change line
-  sLCD.write(COMMAND);
-  sLCD.write(LINE1);
-  
-  sLCD.print("Dist: ");
-  sLCD.print(rangeDistance);
-  sLCD.print(" ft.");
-  
 }
 
 
 void displayRangeWarning()
 {
   clear_lcd();
-  int rangePercent = 78;
-  int rangeDistance = 200;
+  
   //top line
   sLCD.print("RANGE WARNING!");
   
@@ -263,7 +281,6 @@ void displayRangeWarning()
   sLCD.write(COMMAND);
   sLCD.write(LINE1);
   
-  sLCD.print("Dist: ");
-  sLCD.print(rangeDistance);
-  sLCD.print(" ft.");
+  sLCD.print("Sig Strength: ");
+  sLCD.print(rangePercent);
 } 
