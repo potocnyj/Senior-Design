@@ -49,7 +49,14 @@ void gateKeeper()
         updateCurrentSpeed(dataIn);
       break;
     case 'b':
-        updateBatteryInfo(dataIn);
+      if(dataIn[1] == '0')
+      {
+        updateBatteryTime(dataIn);
+      }
+      if(dataIn[1] == '1')
+      {
+        updateBatteryDist(dataIn);
+      }
       break;
     default:
       break;
@@ -98,12 +105,36 @@ void toggleCruise(char cruiseDataalskd)
 
 void updateCurrentSpeed(char speedInfo[])
 { 
-  speedInFTS = atoi(speedInfo);
+  cleanInfo(speedInfo);
+  speedInFTS = atof(cleanArray) / 100;
   speedInScaled = speedInFTS * 6.82;
+  if(previousSpeed != speedInFTS)
+  {
+     updateDisplay();
+  }
+  previousSpeed = speedInFTS;
 }
 
-void updateBatteryInfo(char batInfo[])
+void updateBatteryDist(char batDist[])
 {
-    
+    cleanInfo(batDist);
+    batDistFT = atof(cleanArray);
+    batDistScaled = batDistFT * 6.82;
+    updateDisplay();
+}
+
+void updateBatteryTime(char batTime[])
+{
+  cleanInfo(batTime);
+  batTimeLeft = atof(cleanArray);
+  updateDisplay();
+}
+
+void cleanInfo(char arrayToClean[])
+{
+    for(int i = 1; i <=  PACKET_LEN; i++)
+  {
+      cleanArray[i-1] = arrayToClean[i];
+  }
 }
 

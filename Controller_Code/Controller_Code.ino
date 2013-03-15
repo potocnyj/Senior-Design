@@ -10,12 +10,17 @@ char dataOut[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 int neutral = 1;
 int carSpeed = 0;
 int odom = 0;
-int speedInFTS = 0;
-int speedInScaled = 0;
-int batDistFTS = 0;
-int batDistScaled = 0;
+float speedInFTS = 0;
+float speedInScaled = 0;
+int batDistFT = -1;
+int batDistScaled = -1;
+int batTimeLeft = -1;
 int rangePercent = 0;
 int rangeDistanceFTS = 0;
+char cleanArray[PACKET_LEN -1];
+int currentODOScaled = 0;
+float previousSpeed = -1;
+float previusODO = -1;
 boolean cruise = false;
 boolean scaled = false;
 
@@ -106,7 +111,10 @@ void pollButtons()
 {
   if(Xbox.getButton(UP)) {
     //increment cruise control
-    Serial.println("**c100000000001");
+    if(cruise)
+    {
+      Serial.println("**c100000000001");
+    }
   }      
   
   if(Xbox.getButton(DOWN)) {

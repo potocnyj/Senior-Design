@@ -111,8 +111,6 @@ void displaySpeedODOinScaled()
 {
   clear_lcd();
   
-  int currentODOScaled = 10000;
-  
   //top line
   sLCD.print("SPEED: ");
   sLCD.print(speedInScaled);
@@ -196,7 +194,6 @@ void displayCruiseDataScaled()
 void displayBatteryTime()
 {
   clear_lcd();
-  int batTimeAmount = 30;
   
   //top line
   sLCD.print("Bat. Remaining:");
@@ -207,7 +204,7 @@ void displayBatteryTime()
   
   //bottom line
   sLCD.print("Time: ");
-  sLCD.print(batTimeAmount);
+  sLCD.print(batTimeLeft);
   sLCD.print(" min.");
 }
 
@@ -237,8 +234,15 @@ void displayBatteryDistFTS()
   
   //bottom line
   sLCD.print("Dist: ");
-  sLCD.print(batDistFTS);
-  sLCD.print(" ft.");
+  if((batDistFT == 0) || (batDistFT == 1))
+  {
+    sLCD.print("Initing");
+  }
+  else
+  {
+    sLCD.print(batDistFT);
+    sLCD.print(" ft"); 
+  }
 }
 
 void displayBatteryDistScaled()
@@ -254,8 +258,15 @@ void displayBatteryDistScaled()
   
   //bottom line
   sLCD.print("Dist: ");
-  sLCD.print(batDistScaled);
-  sLCD.print(" m."); 
+  if((batDistFT == 0) || (batDistFT == 1))
+  {
+    sLCD.print("Initing");
+  }
+  else
+  {
+    sLCD.print(batDistScaled);
+    sLCD.print(" m."); 
+  }
 }
 
 
