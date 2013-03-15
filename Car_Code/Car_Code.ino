@@ -8,9 +8,9 @@
 #define MOTOR_DATA_END    6
 #define STEER_DATA_START  7
 #define STEER_DATA_END    12
-#define DRIVE_HIGH        32768
+#define DRIVE_HIGH        32767
 #define DRIVE_LOW         -32768
-#define SPEED_UPDATE_TIME  250   // time in mS to update the speed
+#define SPEED_UPDATE_TIME  500   // time in mS to update the speed
 #define PACKET_LEN    12
 #define HALL_PIN      7
 #define BAUD_RATE     9600
@@ -49,9 +49,7 @@ void setup()
   motorSetup();                     // initalize motor
   steerSetup();                     // initalize steer
   Serial.begin(BAUD_RATE);          // start serial
-  initSignals();
-  
-  
+  initSignals(); 
   
   // DELETE THIS< THIS IS FOR DEBUG PURPOSES
   
@@ -66,7 +64,7 @@ void setup()
   pinMode(digitalBatteryPin, OUTPUT); 
   digitalWrite(HALL_PIN, HIGH);
   PCintPort::attachInterrupt(HALL_PIN, ISR_hall, FALLING);
-  t.every(250, speedUpdate);
+  t.every(SPEED_UPDATE_TIME, speedUpdate);
 }//end setup
 
 

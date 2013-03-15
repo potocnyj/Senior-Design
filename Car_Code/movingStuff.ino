@@ -1,5 +1,4 @@
 #define WHEEL_CIRCUM 12.17367
-#define ROT_TIMEOUT 5000        // if it takes more than 5 seconds to rotate the tire, then dont count it
 #define DIST_UPDATE_RATE  4
 
 int totalRevCount = 0;
@@ -18,8 +17,9 @@ void speedUpdate()
   // use this to update the odometer
   if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
   {
-    updateDistCount = 0;
     writeDist();
+    updateDistCount = 0;
+    totalRevCount = 0;    
   }
 /*  -- OLD CODE, KEPT UNTILL IT IS KNOWN THAT SPEED CALCULATIONS ARE ACCURATE 
   // NOTE: units are inches per second (Ft/S)
@@ -30,19 +30,17 @@ void speedUpdate()
   Serial.println("**s" + carSpeed);
 */
 // speed   =         distance    (/12 => feet) /     time (seconds )              (scaling factor)
-  carSpeed = (((revCount * WHEEL_CIRCUM) / 12) / ((float)SPEED_UPDATE_TIME / 1000)) * 100;
+  carSpeed = ((float)((float)(revCount * WHEEL_CIRCUM) / 12.0f) / ((float)(SPEED_UPDATE_TIME / 1000.0f)))*100;
   carSpeedInt = (int)floor(carSpeed);
   carSpeedOut = (String)carSpeedInt;
   carSpeedOut = zeroPadVar((String)carSpeedOut, 12);
-  
+    
   Serial.println("**s" + carSpeedOut);
   
   totalRevCount = revCount;
   revCount = 0;
   updateDistCount++;  
-
-  totalRevCount = revCount;
-  updateDistCount++;  
+ 
   
   if(voltageCounter == 4)
   {
@@ -67,7 +65,7 @@ void speedUpdate()
 
 void writeDist()
 {
-  unsigned long dist = (revCount * WHEEL_CIRCUM / 12);
+  unsigned long dist = (totalRevCount * WHEEL_CIRCUM / 12);
   totalDistance = totalDistance + dist;
   String distString = (String)dist + (String)readOdom();
   distString = zeroPadVar(distString, 12);

@@ -57,15 +57,15 @@ void ledState()
 
 void wheelTurned(int steerPos)
 {
-  if((steerPos > 1600) && (signalOn != 0))
+  if((steerPos > 1750) && (signalOn != 0))
   {
     signalOver = 1;
   }
-  if((steerPos < 1400) && (signalOn != 0))
+  if((steerPos < 1250) && (signalOn != 0))
   {
     signalOver = 2;
   }
-  if(((steerPos < 1550) && (signalOver == 1)) || ((steerPos > 1450) && (signalOver == 2)))
+  if(((steerPos < 1600) && (signalOver == 1)) || ((steerPos > 1400) && (signalOver == 2)))
   {
     if(signalOn != 0)
     {

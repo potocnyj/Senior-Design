@@ -26,6 +26,7 @@ void initCruise()
   {
     cruiseControl = false;              // cruise was on, now turn off
     savedSpeed = -1;                    // reset the defalut saved speed
+    lastSpeed = 0;
     Serial.println("**c000000000000");  // tell controller cruise is off
   }
   else

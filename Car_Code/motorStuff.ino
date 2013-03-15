@@ -25,7 +25,7 @@ int motorParse()
   }
   
   scaledValue = map(atoi(dataOut), DRIVE_LOW, DRIVE_HIGH, MOTOR_MIN, MOTOR_MAX);
-  
+  //Serial.println(scaledValue);
   return scaledValue; // return the mapped value
 }// end motorParse
 
@@ -72,7 +72,7 @@ void motorAlphaControl()
   if(requestedMotorSpeed >= MOTOR_NEU)    // if going forward
     inReverse = false;
   else                                    // if going backwards
-    inReverse = false;
+    inReverse = true;
   
   if(requestedMotorSpeed != MOTOR_NEU) // from controller: -3768 or something is full reverse, while 3768 or something is full forward
   {
