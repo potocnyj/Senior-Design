@@ -1,3 +1,5 @@
+
+
 void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
 {  
   if(cruiseControlBit == '0') // if its 0, toggle cruise control

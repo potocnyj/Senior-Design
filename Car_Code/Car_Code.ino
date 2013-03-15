@@ -14,8 +14,10 @@
 #define PACKET_LEN    12
 #define HALL_PIN      7
 #define BAUD_RATE     9600
-#define MOTOR_MAX    1700        // Should work to 2000, but scary on a table
-#define MOTOR_MIN    1300        // should work to 1000, but scary on a table
+#define MOTOR_MAX_A  1800        // Should work to 2000, but scary on a table was 1700
+#define MOTOR_MIN_A  1200        // should work to 1000, but scary on a table was 1300
+#define MOTOR_MAX_B  1600        // grandma mode
+#define MOTOR_MIN_B  1400        // grandma mode
 #define MOTOR_NEU    1500
 
 const int leftSignal = 13;
@@ -24,9 +26,12 @@ const int rightSignal = 8;
 Timer t;
 int lastSpeed;
 int revCount = 1;
+int MOTOR_MAX = MOTOR_MAX_B;
+int MOTOR_MIN = MOTOR_MIN_B;
 volatile int revCounter = 0;     // used to count # of forward revolutions of wheel
 boolean inReverse = false;       // used to ensure revCount only gets updated when going forward
-
+boolean grandmaMode = false;
+boolean usedBreaks = false;      // if breaks are used for collison avoidance, dont use till reset
 
 // Collision Avoidance
 boolean collisionNear = false;
@@ -41,6 +46,16 @@ void setup()
   steerSetup();                     // initalize steer
   Serial.begin(BAUD_RATE);          // start serial
   initSignals();
+  
+  
+  
+  // DELETE THIS< THIS IS FOR DEBUG PURPOSES
+  
+  writeOdom(0);
+  Serial.println(readOdom());
+  // DO NOT RELEASE 
+  
+  
   
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt  

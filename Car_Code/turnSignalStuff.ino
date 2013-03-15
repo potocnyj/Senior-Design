@@ -4,6 +4,7 @@
 
 boolean ledOn = false;
 int tickEvent;
+int signalOn;
 
 void initSignals()
 {

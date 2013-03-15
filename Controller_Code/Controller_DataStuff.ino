@@ -26,6 +26,7 @@ void checkSerial()
         }
         if(dataValid())
         {
+          Serial.println(dataIn);
           gateKeeper();
         }
       }

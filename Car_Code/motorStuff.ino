@@ -51,7 +51,18 @@ void motorControl(int dataIn)
 void neutralEngine()
 {
   motor.writeMicroseconds(MOTOR_NEU);
-}//end neutralEngine    
+}//end neutralEngine
+
+void breakEngine()
+{
+  motor.writeMicroseconds(MOTOR_NEU);
+  delay(2);
+  motor.writeMicroseconds(MOTOR_MIN);
+  motor.writeMicroseconds(MOTOR_NEU);
+  delay(2);
+  motor.writeMicroseconds(1300);
+}
+    
 
 
 void motorAlphaControl()

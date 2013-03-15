@@ -41,13 +41,16 @@ void gateKeeper()
       steerControl(steerParse());     // steering
       break;
     case 'c': // cruise control
-      parseCruise(data[1], data[PACKET_LEN]);  // last byte for parsing, 1 for speed control
+      parseCruise(data[PACKET_LEN], data[1]);  // last byte for parsing, 1 for speed control
       break;
     case 'l':
       signalButtonPressed(leftSignal);
       break;
     case 'r':
       signalButtonPressed(rightSignal);
+      break;
+    case 'y':
+      grandma();
       break;
     default:
       break;
@@ -77,3 +80,20 @@ boolean dataValid()
   
   return false;
 }// end dataValid
+
+void grandma()
+{
+  if(!grandmaMode)
+      {
+        MOTOR_MAX = MOTOR_MAX_B;  //slow down the engine
+        MOTOR_MIN = MOTOR_MIN_B;
+        signalButtonPressed(leftSignal); // turn on blinker ;)
+        grandmaMode = true;
+      }
+      else
+      {
+        MOTOR_MAX = MOTOR_MAX_A;   // speed up the engine
+        MOTOR_MIN = MOTOR_MIN_A;
+        grandmaMode = false;
+      }
+}//end grandma

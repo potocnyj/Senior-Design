@@ -15,7 +15,6 @@ unsigned long readOdom()
   for(int addr = ODOM_ADD_START; addr <= ODOM_ADD_END; addr++)
   {
     value = EEPROM.read(addr);
-
     odom = odom << 8;
     odom += value;    
   }
@@ -28,7 +27,7 @@ void writeOdom(unsigned long odom)
 {
   byte value = 0;
   
-  for(int addr = ODOM_ADD_END; addr >= ODOM_ADD_END; addr--)
+  for(int addr = ODOM_ADD_END; addr >= ODOM_ADD_START; addr--)
   {
     value = odom;
     odom = odom >> 8;
