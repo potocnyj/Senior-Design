@@ -3,7 +3,6 @@
 #define LINE0   0x80
 #define LINE1   0xC0
 
-int currentDisplay = 0;
 SoftwareSerial sLCD =  SoftwareSerial(3, 7/*  RX, TX */); /* Serial LCD is connected on digital I/O pin 7 */
 
 
@@ -89,7 +88,6 @@ void displaySpeedAODO()
 void displaySpeedODOinFeet()
 {
   clear_lcd();
-  int currentODOft = 1231;
   
   //top line
   sLCD.print("SPEED: ");
@@ -102,7 +100,7 @@ void displaySpeedODOinFeet()
   
   //bottom line
   sLCD.print("ODO: ");
-  sLCD.print(currentODOft);
+  sLCD.print(currentODOFT);
   sLCD.print(" ft.");
 }
 
@@ -203,9 +201,16 @@ void displayBatteryTime()
   sLCD.write(LINE1);
   
   //bottom line
-  sLCD.print("Time: ");
-  sLCD.print(batTimeLeft);
-  sLCD.print(" min.");
+  if((batTimeLeft == 0) || (batTimeLeft == -1))
+  {
+      sLCD.print("Initializing");
+  }
+  else
+  {
+    sLCD.print("Time: ");
+    sLCD.print(batTimeLeft);
+    sLCD.print(" min.");
+  }
 }
 
 
@@ -233,13 +238,13 @@ void displayBatteryDistFTS()
   sLCD.write(LINE1);
   
   //bottom line
-  sLCD.print("Dist: ");
-  if((batDistFT == 0) || (batDistFT == 1))
+  if((batDistFT == 0) || (batDistFT == -1))
   {
-    sLCD.print("Initing");
+    sLCD.print("Initializing");
   }
   else
   {
+    sLCD.print("Dist: ");
     sLCD.print(batDistFT);
     sLCD.print(" ft"); 
   }
@@ -257,15 +262,15 @@ void displayBatteryDistScaled()
   sLCD.write(LINE1);
   
   //bottom line
-  sLCD.print("Dist: ");
-  if((batDistFT == 0) || (batDistFT == 1))
+  if((batDistFT == 0) || (batDistFT == -1))
   {
-    sLCD.print("Initing");
+    sLCD.print("Initializing");
   }
   else
   {
+    sLCD.print("Dist: ");
     sLCD.print(batDistScaled);
-    sLCD.print(" m."); 
+    sLCD.print(" mi."); 
   }
 }
 
@@ -276,8 +281,17 @@ void displayRange()
   
   //top line
   sLCD.print("Sig Range: ");
-  sLCD.print(rangePercent);
-  sLCD.print("%");
+  if(rangePercent == -1)
+  {
+    sLCD.write(COMMAND);
+    sLCD.write(LINE1);
+    sLCD.print("Intializing");
+  }
+  else
+  {
+    sLCD.print(rangePercent);
+    sLCD.print("%");
+  }
 }
 
 

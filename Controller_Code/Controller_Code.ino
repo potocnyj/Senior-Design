@@ -13,16 +13,21 @@ int odom = 0;
 float speedInFTS = 0;
 float speedInScaled = 0;
 int batDistFT = -1;
+int previousBatDist;
 int batDistScaled = -1;
 int batTimeLeft = -1;
-int rangePercent = 0;
-int rangeDistanceFTS = 0;
+int previousBatTime;
+int rangePercent = -1;
+int previousRange = 100;
 char cleanArray[PACKET_LEN -1];
-int currentODOScaled = 0;
+int currentODOFT = 0;
+float currentODOScaled = 0;
 float previousSpeed = -1;
-float previusODO = -1;
+float previousODO = -1;
 boolean cruise = false;
 boolean scaled = false;
+
+int currentDisplay = 0;
 
 
 void setup() {
@@ -52,9 +57,6 @@ void loop()
   }
   
   checkSerial();
-  //getRSSI();
-  
- // updateDisplay();
   
   delay(10);
 }// end loop

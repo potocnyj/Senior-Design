@@ -26,7 +26,6 @@ void checkSerial()
         }
         if(dataValid())
         {
-          Serial.println(dataIn);
           gateKeeper();
         }
       }
@@ -49,6 +48,7 @@ void gateKeeper()
         updateCurrentSpeed(dataIn);
       break;
     case 'b':
+      Serial.println("BATTERY INFO RECEIVED");
       if(dataIn[1] == '0')
       {
         updateBatteryTime(dataIn);
@@ -57,6 +57,13 @@ void gateKeeper()
       {
         updateBatteryDist(dataIn);
       }
+      break;
+    case 'o':
+      updateOdometer(dataIn);
+      break;
+    case'r':
+      updateRangeInfo(dataIn);
+      getRSSI();
       break;
     default:
       break;
@@ -108,9 +115,9 @@ void updateCurrentSpeed(char speedInfo[])
   cleanInfo(speedInfo);
   speedInFTS = atof(cleanArray) / 100;
   speedInScaled = speedInFTS * 6.82;
-  if(previousSpeed != speedInFTS)
+  if((previousSpeed != speedInFTS) && (currentDisplay == 1))
   {
-     updateDisplay();
+       updateDisplay();
   }
   previousSpeed = speedInFTS;
 }
@@ -118,16 +125,52 @@ void updateCurrentSpeed(char speedInfo[])
 void updateBatteryDist(char batDist[])
 {
     cleanInfo(batDist);
+    Serial.println(cleanArray);
     batDistFT = atof(cleanArray);
     batDistScaled = batDistFT * 6.82;
-    updateDisplay();
+    if((previousBatDist != batDistFT) && ( currentDisplay == 4))
+    {
+      updateDisplay();
+    }
 }
 
 void updateBatteryTime(char batTime[])
 {
   cleanInfo(batTime);
+  Serial.println(cleanArray);
   batTimeLeft = atof(cleanArray);
-  updateDisplay();
+  if((previousBatTime != batTimeLeft) && (currentDisplay == 3))
+  {
+    updateDisplay();
+  }
+}
+
+void updateOdometer(char ODOVal[])
+{
+  cleanInfo(ODOVal);
+  currentODOFT = atoi(cleanArray);
+  currentODOScaled = currentODOFT * .001894;
+  if((previousODO != currentODOFT) && ( currentDisplay == 1))
+  {
+      updateDisplay();
+  }
+  previousODO = currentODOFT;
+}
+
+void updateRangeInfo(char rangeIn[])
+{
+   cleanInfo(rangeIn);
+   rangePercent = atoi(cleanArray);
+   
+   if((rangePercent <= 30) && (rangePercent < 0))
+   {
+     displayRangeWarning();
+   }
+   if((previousRange != rangePercent) && (currentDisplay == 5))
+   {
+     updateDisplay();
+   }
+   previousRange = rangePercent;
 }
 
 void cleanInfo(char arrayToClean[])
