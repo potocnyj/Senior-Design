@@ -48,7 +48,6 @@ void gateKeeper()
         updateCurrentSpeed(dataIn);
       break;
     case 'b':
-      Serial.println("BATTERY INFO RECEIVED");
       if(dataIn[1] == '0')
       {
         updateBatteryTime(dataIn);
@@ -125,7 +124,6 @@ void updateCurrentSpeed(char speedInfo[])
 void updateBatteryDist(char batDist[])
 {
     cleanInfo(batDist);
-    Serial.println(cleanArray);
     batDistFT = atof(cleanArray);
     batDistScaled = batDistFT * 6.82;
     if((previousBatDist != batDistFT) && ( currentDisplay == 4))
@@ -137,7 +135,6 @@ void updateBatteryDist(char batDist[])
 void updateBatteryTime(char batTime[])
 {
   cleanInfo(batTime);
-  Serial.println(cleanArray);
   batTimeLeft = atof(cleanArray);
   if((previousBatTime != batTimeLeft) && (currentDisplay == 3))
   {

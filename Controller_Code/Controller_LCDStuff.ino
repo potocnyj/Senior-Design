@@ -62,14 +62,14 @@ void updateDisplay()
 
 void nextDisplay()
 {
-  Serial.println(++currentDisplay);
+  currentDisplay++;
   moveDisplay();
 }
 
 
 void previousDisplay()
 {
-  Serial.println(--currentDisplay);
+  currentDisplay--;
   moveDisplay();
 }
 
