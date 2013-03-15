@@ -60,10 +60,6 @@ void gateKeeper()
     case 'o':
       updateOdometer(dataIn);
       break;
-    case'r':
-      updateRangeInfo(dataIn);
-      getRSSI();
-      break;
     default:
       break;
   }
@@ -119,6 +115,8 @@ void updateCurrentSpeed(char speedInfo[])
        updateDisplay();
   }
   previousSpeed = speedInFTS;
+  
+  updateRangeInfo();
 }
 
 void updateBatteryDist(char batDist[])
@@ -154,11 +152,10 @@ void updateOdometer(char ODOVal[])
   previousODO = currentODOFT;
 }
 
-void updateRangeInfo(char rangeIn[])
+void updateRangeInfo()
 {
-   cleanInfo(rangeIn);
-   rangePercent = atoi(cleanArray);
-   
+   rangePercent = map(getRSSI(), 88, 40, 0, 100);
+  
    if((rangePercent <= 30) && (rangePercent < 0))
    {
      displayRangeWarning();
