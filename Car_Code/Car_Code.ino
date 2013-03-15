@@ -33,6 +33,10 @@ boolean inReverse = false;       // used to ensure revCount only gets updated wh
 boolean grandmaMode = false;
 boolean usedBreaks = false;      // if breaks are used for collison avoidance, dont use till reset
 
+// battery
+int digitalBatteryPin = 2;
+unsigned long totalDistance = 0;
+
 // Collision Avoidance
 boolean collisionNear = false;
 
@@ -58,7 +62,8 @@ void setup()
   
   
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
-  pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt  
+  pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt 
+  pinMode(digitalBatteryPin, OUTPUT); 
   digitalWrite(HALL_PIN, HIGH);
   PCintPort::attachInterrupt(HALL_PIN, ISR_hall, FALLING);
   t.every(250, speedUpdate);

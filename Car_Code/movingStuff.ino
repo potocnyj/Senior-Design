@@ -5,6 +5,8 @@
 int totalRevCount = 0;
 byte updateDistCount = 0;
 boolean timerSelect = true;
+int voltageCounter = 0;
+int timerCounter = 0;
 
 
 void speedUpdate()
@@ -41,12 +43,32 @@ void speedUpdate()
 
   totalRevCount = revCount;
   updateDistCount++;  
+  
+  if(voltageCounter == 4)
+  {
+    getVoltage();
+    voltageCounter = 0;
+  }
+  else
+  {
+    voltageCounter++;
+  }
+  if(timerCounter == 120)
+  {  
+    calculateTime();
+    timerCounter = 0;
+  }
+  else
+  {
+    timerCounter++;
+  }
 }// end speedUpdate
 
 
 void writeDist()
 {
   unsigned long dist = (revCount * WHEEL_CIRCUM / 12);
+  totalDistance = totalDistance + dist;
   String distString = (String)dist + (String)readOdom();
   distString = zeroPadVar(distString, 12);
   

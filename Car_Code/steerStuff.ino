@@ -37,7 +37,8 @@ int steerParse()
 void steerControl(int dataIn)
 {
   // write the turn ammount to the engine
-  steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);  
+  steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);
+  wheelTurned(steerPos);  
   if((steerPos >= minTurn) &&  (steerPos <= maxTurn))
   {
     steer.writeMicroseconds(steerPos);
