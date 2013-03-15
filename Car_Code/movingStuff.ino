@@ -7,7 +7,8 @@ boolean timerSelect = true;
 int voltageCounter = 0;
 int timerCounter = 0;
 
-
+// Update the car's current speed
+// based on the hall effect sensor
 void speedUpdate()
 {
   float carSpeed;
@@ -21,15 +22,8 @@ void speedUpdate()
     updateDistCount = 0;
     totalRevCount = 0;    
   }
-/*  -- OLD CODE, KEPT UNTILL IT IS KNOWN THAT SPEED CALCULATIONS ARE ACCURATE 
-  // NOTE: units are inches per second (Ft/S)
-  // distance * time (milliseconds/1000 == second  
-  String carSpeed = (String)((int)(((revCount - totalRevCount) * WHEEL_CIRCUM * ((float)SPEED_UPDATE_TIME / 1000.0f))) / 12);
-  carSpeed = zeroPadVar(carSpeed, 12);
-  // (int)(((((revCount - totalRevCount) * WHEEL_CIRCUM) * ((float)SPEED_UPDATE_TIME / 1000.0f)) / 12));
-  Serial.println("**s" + carSpeed);
-*/
-// speed   =         distance    (/12 => feet) /     time (seconds )              (scaling factor)
+
+  // speed   =         distance    (/12 => feet) /     time (seconds )              (scaling factor)
   carSpeed = ((float)((float)(revCount * WHEEL_CIRCUM) / 12.0f) / ((float)(SPEED_UPDATE_TIME / 1000.0f)))*100;
   carSpeedInt = (int)floor(carSpeed);
   carSpeedOut = (String)carSpeedInt;
@@ -40,7 +34,6 @@ void speedUpdate()
   totalRevCount = revCount;
   revCount = 0;
   updateDistCount++;  
- 
   
   if(voltageCounter == 4)
   {
@@ -63,6 +56,8 @@ void speedUpdate()
 }// end speedUpdate
 
 
+// Updates the car's distance travelled
+// based on the hall effect sensor data
 void writeDist()
 {
   unsigned long dist = (totalRevCount * WHEEL_CIRCUM / 12);
@@ -76,6 +71,8 @@ void writeDist()
 }// end writeDist
 
 
+// Pad the raw string value of 
+// the speed and distance packets with zeroes
 String zeroPadVar(String input, int length)
 {
   String val = input;

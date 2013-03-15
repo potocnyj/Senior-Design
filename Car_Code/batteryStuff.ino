@@ -1,4 +1,3 @@
-
 const int referenceVolts = 5; // the default reference on a 5-volt board
 //const float referenceVolts = 3.3; // use this for a 3.3-volt board
 

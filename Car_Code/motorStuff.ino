@@ -4,7 +4,7 @@
 Servo motor;
 int engineSpeed;
 
-
+// initialize the motor control
 void motorSetup()
 {
   engineSpeed = MOTOR_NEU;
@@ -13,6 +13,8 @@ void motorSetup()
 }// end motorSetup
 
 
+// interpret our motor throttle data 
+// into a value for the controller
 int motorParse()
 {
   char dataOut[] = {'0','0','0','0','0','0','\0'};
@@ -25,7 +27,7 @@ int motorParse()
   }
   
   scaledValue = map(atoi(dataOut), DRIVE_LOW, DRIVE_HIGH, MOTOR_MIN, MOTOR_MAX);
-  //Serial.println(scaledValue);
+
   return scaledValue; // return the mapped value
 }// end motorParse
 
@@ -47,13 +49,17 @@ void motorControl(int dataIn)
   }
 }//end engine
     
-    
+
+// Kill the motor
 void neutralEngine()
 {
   motor.writeMicroseconds(MOTOR_NEU);
 }//end neutralEngine
 
-void breakEngine()
+
+// Attempt to brake the engine by reversing throttle quickly
+// NOTE: This function currently is inoperable, and is not used.
+void brakeEngine()
 {
   motor.writeMicroseconds(MOTOR_NEU);
   delay(2);
@@ -64,7 +70,8 @@ void breakEngine()
 }
     
 
-
+// Parses the motor packet and applies 
+// the new throttle value to the speed controller
 void motorAlphaControl()
 {
   int requestedMotorSpeed = motorParse();

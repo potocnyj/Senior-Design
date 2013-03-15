@@ -1,7 +1,7 @@
 #define MSB_DATA          0
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-
+// The current data packet received from the controller
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
 // This will process all the data for us
@@ -28,6 +28,7 @@ void checkSerial()
 }// end checkSerial
 
 
+// The main function to decide what to do with received packets
 void gateKeeper()
 {
   switch(MSB())
@@ -50,7 +51,7 @@ void gateKeeper()
       signalButtonPressed(rightSignal);
       break;
     case 'y':
-      grandma();
+      driveSelect();  // Change between comfort and sport mode
       break;
     default:
       break;
@@ -65,6 +66,7 @@ char MSB()
 }// end MSB
 
 
+// ensure that the data packet is in our standard form (1 letter, all digits following)
 boolean dataValid()
 {
   if(((int)data[0] >= 97) && ((int)data[0] <= 122)) // first char is a lowercase letter
@@ -81,19 +83,20 @@ boolean dataValid()
   return false;
 }// end dataValid
 
-void grandma()
+
+// Toggle between comfort and sport mode for driving
+void driveSelect()
 {
-  if(!grandmaMode)
+  if(!comfortMode)
       {
-        MOTOR_MAX = MOTOR_MAX_B;  //slow down the engine
+        MOTOR_MAX = MOTOR_MAX_B;  //slow down the engine (comfort mode)
         MOTOR_MIN = MOTOR_MIN_B;
-        signalButtonPressed(leftSignal); // turn on blinker ;)
-        grandmaMode = true;
+        comfortMode = true;
       }
       else
       {
-        MOTOR_MAX = MOTOR_MAX_A;   // speed up the engine
+        MOTOR_MAX = MOTOR_MAX_A;   // speed up the engine (sport mode)
         MOTOR_MIN = MOTOR_MIN_A;
-        grandmaMode = false;
+        comfortMode = false;
       }
-}//end grandma
+}//end driveSelect

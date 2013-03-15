@@ -1,5 +1,6 @@
-
-
+// Parse our cruise control packet and decide what function to perform
+// cruiseControlBit: indicates which function to perform (0 = toggle, 1 = on)
+// cruiseSpeedBit: indicates whether to increment or decrement cruise speed
 void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
 {  
   if(cruiseControlBit == '0') // if its 0, toggle cruise control
@@ -19,7 +20,7 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
   }
 }// end parseCruise
 
-
+// toggle cruise control
 void initCruise()
 {
   if(cruiseControl)
@@ -39,6 +40,10 @@ void initCruise()
 }//end initCruise
 
 
+// increment the cruise control speed
+// NOTE: this code was never adapted 
+// to run based off of the car's speed, 
+// rather than its throttle
 void cruiseSpeedUp()
 {
   if(cruiseControl)
@@ -51,6 +56,10 @@ void cruiseSpeedUp()
 }// end cruiseSpeedUp
 
 
+// decrement the cruise control speed
+// NOTE: this code was never adapted 
+// to run based off of the car's speed, 
+// rather than its throttle
 void cruiseSpeedDown()
 {
   if(cruiseControl) // make sure cruise is on
