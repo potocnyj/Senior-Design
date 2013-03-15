@@ -30,13 +30,11 @@ boolean collisionImminent()
   if(nearestObject < MIN_DIST_CM)
   {
     neutralEngine();
-//    brakeEngine();    // The breaks never got working, stubbed out the call
-    usedBreaks = true;
+
     return true;
   }
   else
   {
-    usedBreaks = false;
     return false;
   }
 }

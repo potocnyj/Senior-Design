@@ -1,9 +1,6 @@
 #define MSB_DATA          0
 #define DATA_LEN          6        // how many bytes the relevant data is
 
-// The current data packet received from the controller
-char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
-
 // This will process all the data for us
 void checkSerial()
 {

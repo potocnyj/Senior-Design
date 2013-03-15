@@ -23,15 +23,17 @@
 const int leftSignal = 13;
 const int rightSignal = 8;
 
+// The current data packet received from the controller
+char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
+
 Timer t;
 int lastSpeed;
 int revCount = 1;
-int MOTOR_MAX = MOTOR_MAX_B;
-int MOTOR_MIN = MOTOR_MIN_B;
+int MOTOR_MAX = MOTOR_MAX_A;
+int MOTOR_MIN = MOTOR_MIN_A;
 volatile int revCounter = 0;     // used to count # of forward revolutions of wheel
 boolean inReverse = false;       // used to ensure revCount only gets updated when going forward
 boolean comfortMode = false;
-boolean usedBreaks = false;      // if breaks are used for collison avoidance, dont use till reset
 
 // battery
 int digitalBatteryPin = 2;
@@ -50,6 +52,7 @@ void setup()
   steerSetup();                     // initalize steer
   Serial.begin(BAUD_RATE);          // start serial
   initSignals();                    // initialize turnSignals
+  driveSelect();                    // Change to comfort mode once motor is initialized
   
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt 
