@@ -30,7 +30,7 @@ void gateKeeper()
 {
   switch(MSB())
   {
-  // Drive case 
+    // Drive case 
     case 'd':
       // the drive packet is 13 bytes long.  first char is identifier 
       // next 6 chars is throttle position, the last 6 are steering
@@ -66,11 +66,11 @@ char MSB()
 // ensure that the data packet is in our standard form (1 letter, all digits following)
 boolean dataValid()
 {
-  if(((int)data[0] >= 97) && ((int)data[0] <= 122)) // first char is a lowercase letter
+  if(checkChar((int)data[0])) // first char is a lowercase letter
   {
-    for(int i = 0; i <= DATA_LEN; i++)
+    for(int i = 1; i <= DATA_LEN; i++)
     {
-      if(!(((int)data[0] >= 48) && ((int)data[0] >= 57)))    // if data != number, return false
+      if(!((((int)data[i] >= 48) && ((int)data[i] <= 57)) || ((int)data[i] == 45)))    // if data != number, return false
         return false;
     }
     
@@ -79,6 +79,13 @@ boolean dataValid()
   
   return false;
 }// end dataValid
+
+
+// Check to make sure that the input integer is equal to an ascii character (a-z)
+boolean checkChar(int character)
+{
+  return ((character >= 97) && (character <= 122));
+}
 
 
 // Toggle between comfort and sport mode for driving

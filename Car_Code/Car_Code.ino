@@ -48,9 +48,9 @@ int      savedSpeed = -1;
 
 void setup()
 {
+  Serial.begin(BAUD_RATE);          // start serial
   motorSetup();                     // initalize motor
   steerSetup();                     // initalize steer
-  Serial.begin(BAUD_RATE);          // start serial
   initSignals();                    // initialize turnSignals
   driveSelect();                    // Change to comfort mode once motor is initialized
   

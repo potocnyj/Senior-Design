@@ -9,6 +9,11 @@
 #define DIST_SENSE_PIN  A0
 #define MIN_DIST_CM     75
 
+// We need to stop our car the first time 
+// a collision is detected as imminent
+boolean firstCollisionDetected = false;
+
+
 // Check our sensor, determine if an object is near.
 int checkDistance() 
 {
@@ -17,7 +22,7 @@ int checkDistance()
   
   distance = map(distance, 0, 524, 150, 0);
   
-  return distance;  
+  return distance;
 }
 
 
@@ -27,14 +32,18 @@ boolean collisionImminent()
   int nearestObject = checkDistance();
   
   // Is the nearest object < 100cm away?
-  if(nearestObject < MIN_DIST_CM)
+  if (nearestObject < MIN_DIST_CM)
   {
-    neutralEngine();
-
-    return true;
+    if(!firstCollisionDetected)
+    {
+      neutralEngine();
+      firstCollisionDetected = true;
+    }
   }
   else
   {
-    return false;
+    firstCollisionDetected = false;
   }
+  
+  return firstCollisionDetected;
 }
