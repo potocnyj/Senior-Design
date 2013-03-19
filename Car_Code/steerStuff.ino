@@ -1,17 +1,14 @@
 // Steer Stuff
-
 #define steeringPin  9    // The digital output pin for the steering servo
 
 Servo steer;
-int steerPos;
 
 
 // sets up the steer stuff for us
 void steerSetup()
 {
-  steerPos = neutralTurn;
   steer.attach(steeringPin, minTurn, maxTurn);
-  steer.writeMicroseconds(steerPos);
+  steer.writeMicroseconds(neutralTurn);
 }//end steerSetup
 
 
@@ -35,10 +32,11 @@ int steerParse()
 void steerControl(int dataIn)
 {
   // write the turn ammount to the engine
-  steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);
-  wheelTurned(steerPos);  
+  int steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, minTurn, maxTurn);
   if((steerPos >= minTurn) &&  (steerPos <= maxTurn))
   {
     steer.writeMicroseconds(steerPos);
   }
+  
+  wheelTurned(steerPos);  
 }// end steer

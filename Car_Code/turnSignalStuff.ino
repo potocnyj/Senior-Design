@@ -1,9 +1,9 @@
 #include <motorStuff>
 #include <Timer.h>
-#define leftThreshold ((neutralTurn- minTurn)/2) + minTurn
-#define rightThreshold ((maxTurn - neutralTurn)/2) + neutralTurn
-#define leftOff neutralTurn - ((neutralTurn- minTurn)/4)
-#define rightOff neutralTurn + ((maxTurn - neutralTurn)/4)
+#define leftThreshold    ((neutralTurn- minTurn)/2) + minTurn
+#define rightThreshold   ((maxTurn - neutralTurn)/2) + neutralTurn
+#define leftOff          neutralTurn - ((neutralTurn- minTurn)/4)
+#define rightOff         neutralTurn + ((maxTurn - neutralTurn)/4)
 
 
 boolean ledOn = false;
