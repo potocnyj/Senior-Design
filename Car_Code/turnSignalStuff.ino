@@ -1,5 +1,10 @@
 #include <motorStuff>
 #include <Timer.h>
+#define leftThreshold ((neutralTurn- minTurn)/2) + minTurn
+#define rightThreshold ((maxTurn - neutralTurn)/2) + neutralTurn
+#define leftOff neutralTurn - ((neutralTurn- minTurn)/4)
+#define rightOff neutralTurn + ((maxTurn - neutralTurn)/4)
+
 
 boolean ledOn = false;
 int tickEvent;
@@ -66,15 +71,15 @@ void ledState()
 // and turn it off
 void wheelTurned(int steerPos)
 {
-  if((steerPos > 1750) && (signalOn != 0))
+  if((steerPos > rightThreshold) && (signalOn == rightSignal))
   {
     signalOver = 1;
   }
-  if((steerPos < 1250) && (signalOn != 0))
+  if((steerPos < leftThreshold) && (signalOn == leftSignal))
   {
     signalOver = 2;
   }
-  if(((steerPos < 1600) && (signalOver == 1)) || ((steerPos > 1400) && (signalOver == 2)))
+  if(((steerPos < rightOff) && (signalOver == 1)) || ((steerPos > leftOff) && (signalOver == 2)))
   {
     if(signalOn != 0)
     {

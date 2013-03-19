@@ -1,7 +1,5 @@
 // Steer Stuff
-#define minTurn      1100 // The lowest microsecond pulse the turning servo can take; a full left turn
-#define maxTurn      1900 // The highest microsecond pulse the turning servo can take; a full right turn
-#define neutralTurn  1500 // Neutral turn position on the servo
+
 #define steeringPin  9    // The digital output pin for the steering servo
 
 Servo steer;

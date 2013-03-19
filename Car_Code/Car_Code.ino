@@ -19,9 +19,14 @@
 #define MOTOR_MAX_B  1600        // comfort mode
 #define MOTOR_MIN_B  1400        // comfort mode
 #define MOTOR_NEU    1500
+#define minTurn      1100 // The lowest microsecond pulse the turning servo can take; a full left turn
+#define maxTurn      1900 // The highest microsecond pulse the turning servo can take; a full right turn
+#define neutralTurn  1500 // Neutral turn position on the servo
 
 const int leftSignal = 13;
 const int rightSignal = 8;
+
+
 
 // The current data packet received from the controller
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
