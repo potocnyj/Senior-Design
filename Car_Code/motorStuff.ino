@@ -58,15 +58,17 @@ void neutralEngine()
 
 
 // Attempt to brake the engine by reversing throttle quickly
-// NOTE: This function currently is inoperable, and is not used.
 void brakeEngine()
 {
   motor.writeMicroseconds(MOTOR_NEU);
-  delay(2);
+  delay(50);
   motor.writeMicroseconds(MOTOR_MIN);
+  delay(50);
   motor.writeMicroseconds(MOTOR_NEU);
-  delay(2);
-  motor.writeMicroseconds(1300);
+  delay(50);
+  motor.writeMicroseconds(MOTOR_MIN);
+  delay(250);
+  motor.writeMicroseconds(MOTOR_NEU);
 }
     
 

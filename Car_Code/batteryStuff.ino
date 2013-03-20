@@ -374,8 +374,7 @@ void getVoltage()
 
 
 void calculateTime()
-{
-  
+{  
   int voltageSum = 0;
   int dataPoints = 0;
   for(int recentVoltages = 0; recentVoltages < 10; recentVoltages++)
@@ -460,4 +459,3 @@ void tenSeconds()
   }
   timeCounter++;
 }
-

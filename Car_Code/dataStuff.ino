@@ -92,15 +92,15 @@ boolean checkChar(int character)
 void driveSelect()
 {
   if(!comfortMode)
-      {
-        MOTOR_MAX = MOTOR_MAX_B;  //slow down the engine (comfort mode)
-        MOTOR_MIN = MOTOR_MIN_B;
-        comfortMode = true;
-      }
-      else
-      {
-        MOTOR_MAX = MOTOR_MAX_A;   // speed up the engine (sport mode)
-        MOTOR_MIN = MOTOR_MIN_A;
-        comfortMode = false;
-      }
+  {
+    MOTOR_MAX = MOTOR_MAX_B;  //slow down the engine (comfort mode)
+    MOTOR_MIN = MOTOR_MIN_B;
+    comfortMode = true;
+  }
+  else
+  {
+    MOTOR_MAX = MOTOR_MAX_A;   // speed up the engine (sport mode)
+    MOTOR_MIN = MOTOR_MIN_A;
+    comfortMode = false;
+  }
 }//end driveSelect

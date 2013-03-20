@@ -18,9 +18,8 @@ boolean firstCollisionDetected = false;
 int checkDistance() 
 {
   // put your main code here, to run repeatedly: 
-  int distance = analogRead(DIST_SENSE_PIN);
-  
-  distance = map(distance, 0, 524, 150, 0);
+  int distance = analogRead(DIST_SENSE_PIN);  
+  distance = map(distance, 0, 666, 150, 0);
   
   return distance;
 }
@@ -36,7 +35,8 @@ boolean collisionImminent()
   {
     if(!firstCollisionDetected)
     {
-      neutralEngine();
+      brakeEngine();
+
       firstCollisionDetected = true;
     }
   }

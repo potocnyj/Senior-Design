@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <Servo.h>
 #include <PWM.h>
 #include <Timer.h>
@@ -26,8 +25,6 @@
 const int leftSignal = 13;
 const int rightSignal = 8;
 
-
-
 // The current data packet received from the controller
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
@@ -51,6 +48,7 @@ boolean collisionNear = false;
 boolean  cruiseControl = false;
 int      savedSpeed = -1;
 
+
 void setup()
 {
   Serial.begin(BAUD_RATE);          // start serial
@@ -72,7 +70,6 @@ void loop()
 {
   checkSerial();    // find if there is any data waiting for us
   collisionNear = collisionImminent();
-  motorAlphaControl();
   t.update();
 }// end loop
 
