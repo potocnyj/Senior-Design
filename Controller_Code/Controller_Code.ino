@@ -113,10 +113,7 @@ void pollButtons()
 {
   if(Xbox.getButton(UP)) {
     //increment cruise control
-//    if(cruise)
-//    {
       Serial.println("**c100000000001");
-//    }
   }      
   
   if(Xbox.getButton(DOWN)) {
@@ -131,10 +128,6 @@ void pollButtons()
   if(Xbox.getButton(RIGHT)) {
     nextDisplay();
   }
-
-//  if(Xbox.getButton(START)) {
-//    //nothing yet
-//  }
   
   if(Xbox.getButton(BACK)) {
     //potentially do not use, not very responsive but might have been led issues
@@ -144,14 +137,6 @@ void pollButtons()
     Serial.println("**c000000000000");
     //will set cruise control
   }
-  
-//  if(Xbox.getButton(A)){
-//    Serial.println("**a000000000000");
-//  }
-//  
-//  if(Xbox.getButton(B)){
-//    Serial.println("**b000000000000");
-//  }
   
   if(Xbox.getButton(X)){
     scaled = !scaled;

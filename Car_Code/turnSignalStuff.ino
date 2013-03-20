@@ -30,9 +30,9 @@ void signalButtonPressed(int input)
     signalOn = 0;
     input = 0;
   }
-  else if(input == 13)
+  else if(input == leftSignal)
   {
-    if(signalOn == 8)
+    if(signalOn == rightSignal)
     {
       t.stop(tickEvent);
     }
@@ -40,7 +40,7 @@ void signalButtonPressed(int input)
     signalOn = input;
     tickEvent = t.every(1000, ledState);
   }
-  else if(input == 8)
+  else if(input == rightSignal)
   {
     if(signalOn)
     {
@@ -56,7 +56,7 @@ void signalButtonPressed(int input)
 // oscillate the state of the turn signal
 void ledState()
 {
-  if(signalOn == 8 || signalOn == 13)
+  if(signalOn == rightSignal || signalOn == leftSignal)
   {
     if(!ledOn)
     {
@@ -73,13 +73,14 @@ void wheelTurned(int steerPos)
 {
   if((steerPos > rightThreshold) && (signalOn == rightSignal))
   {
-    signalOver = 1;
+    signalOver = rightSignal;
   }
   if((steerPos < leftThreshold) && (signalOn == leftSignal))
   {
-    signalOver = 2;
+    signalOver = leftSignal;
   }
-  if(((steerPos < rightOff) && (signalOver == 1)) || ((steerPos > leftOff) && (signalOver == 2)))
+  
+  if(((steerPos < rightOff) && (signalOver == rightSignal)) || ((steerPos > leftOff) && (signalOver == leftSignal)))
   {
     if(signalOn != 0)
     {
