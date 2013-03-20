@@ -364,7 +364,7 @@ void getVoltage()
   int val = analogRead(batteryPin); // read the value from the sensor
   float volts = (val / resistorFactor) * referenceVolts ; // calculate the ratio
   digitalWrite(digitalBatteryPin, LOW);
-  Serial.println(volts);
+  
   for(int shift = 9; shift >= 1; shift--)
   {
     smoothedData[shift] = smoothedData[shift-1];
