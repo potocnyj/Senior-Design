@@ -75,11 +75,11 @@ char MSB()
 
 boolean dataValid()
 {
-  if(((int)dataIn[0] >= 97) && ((int)dataIn[0] <= 122)) // first char is a lowercase letter
+  if(checkChar((int)dataIn[0])) // first char is a lowercase letter
   {
-    for(int i = 0; i <= DATA_LEN; i++)
+    for(int i = 1; i <= DATA_LEN; i++)
     {
-      if(!(((int)dataIn[0] >= 48) && ((int)dataIn[0] >= 57)))    // if data != number, return false
+      if(!((((int)dataIn[i] >= 48) && ((int)dataIn[i] <= 57)) || ((int)dataIn[i] == 45)))    // if data != number, return false
         return false;
     }
     
@@ -88,6 +88,13 @@ boolean dataValid()
   
   return false;
 }// end dataValid
+
+
+// Check to make sure that the input integer is equal to an ascii character (a-z)
+boolean checkChar(int character)
+{
+  return ((character >= 97) && (character <= 122));
+}
 
 
 void toggleCruise(char cruiseDataalskd)
@@ -105,6 +112,7 @@ void toggleCruise(char cruiseDataalskd)
   updateDisplay();
 }
 
+
 void updateCurrentSpeed(char speedInfo[])
 { 
   cleanInfo(speedInfo);
@@ -119,6 +127,7 @@ void updateCurrentSpeed(char speedInfo[])
   updateRangeInfo();
 }
 
+
 void updateBatteryDist(char batDist[])
 {
     cleanInfo(batDist);
@@ -130,6 +139,7 @@ void updateBatteryDist(char batDist[])
     }
 }
 
+
 void updateBatteryTime(char batTime[])
 {
   cleanInfo(batTime);
@@ -139,6 +149,7 @@ void updateBatteryTime(char batTime[])
     updateDisplay();
   }
 }
+
 
 void updateOdometer(char ODOVal[])
 {
@@ -151,6 +162,7 @@ void updateOdometer(char ODOVal[])
   }
   previousODO = currentODOFT;
 }
+
 
 void updateRangeInfo()
 {
@@ -167,6 +179,7 @@ void updateRangeInfo()
    previousRange = rangePercent;
 }
 
+
 void cleanInfo(char arrayToClean[])
 {
     for(int i = 1; i <=  PACKET_LEN; i++)
@@ -174,4 +187,3 @@ void cleanInfo(char arrayToClean[])
       cleanArray[i-1] = arrayToClean[i];
   }
 }
-
