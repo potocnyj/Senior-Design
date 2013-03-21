@@ -1,5 +1,5 @@
-#define WHEEL_CIRCUM 12.17367
-#define DIST_UPDATE_RATE  4
+#define WHEEL_CIRCUM 12.17367/2   // because we now have 2 magnets
+#define DIST_UPDATE_RATE  5
 
 int totalRevCount = 0;
 byte updateDistCount = 0;
@@ -12,26 +12,28 @@ int timerCounter = 0;
 void speedUpdate()
 {
   float carSpeed;
+  float distance;
   int carSpeedInt;
   String carSpeedOut;
-  
-  // use this to update the odometer
-  if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
-  {
-    writeDist();
-    updateDistCount = 0;
-    totalRevCount = 0;    
-  }
 
-  // speed   =         distance    (/12 => feet) /     time (seconds )              (scaling factor)
-  carSpeed = ((float)((float)(revCount * WHEEL_CIRCUM) / 12.0f) / ((float)(SPEED_UPDATE_TIME / 1000.0f)))*100;
+  distance = (revCount * WHEEL_CIRCUM) / 12.0f; // distance in ft
+    // speed   =   distance(feet) /     time (seconds )                (scaling factor)
+  carSpeed = ((float)(distance / ((float)(SPEED_UPDATE_TIME / 1000.0f))))*100;
   carSpeedInt = (int)floor(carSpeed);
   carSpeedOut = (String)carSpeedInt;
   carSpeedOut = zeroPadVar((String)carSpeedOut, 12);
     
   Serial.println("**s" + carSpeedOut);
+    
+  // use this to update the odometer
+  if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
+  {
+    writeDist(distance);
+    updateDistCount = 0;
+    totalRevCount = 0;    
+  }
   
-  totalRevCount = revCount;
+  totalRevCount += revCount;
   revCount = 0;
   updateDistCount++;  
   
@@ -58,11 +60,11 @@ void speedUpdate()
 
 // Updates the car's distance travelled
 // based on the hall effect sensor data
-void writeDist()
+void writeDist(float distance)
 {
-  unsigned long dist = (totalRevCount * WHEEL_CIRCUM / 12);
-  totalDistance = totalDistance + dist;
-  String distString = (String)dist + (String)readOdom();
+  unsigned long dist = floor(distance);
+  totalDistance = totalDistance + dist;  // wtf is this line for?
+  String distString = (String)(dist + readOdom());
   distString = zeroPadVar(distString, 12);
   
   Serial.println("**o" + distString);

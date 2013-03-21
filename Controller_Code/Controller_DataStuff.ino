@@ -166,8 +166,8 @@ void updateOdometer(char ODOVal[])
 
 void updateRangeInfo()
 {
-   rangePercent = map(getRSSI(), 88, 40, 0, 100);
-  
+//   rangePercent = map(getRSSI(), 88, 40, 0, 100);
+   rangePercent = getRSSI();
    if((rangePercent <= 30) && (rangePercent < 0))
    {
      displayRangeWarning();

@@ -56,6 +56,7 @@ void setup()
   steerSetup();                     // initalize steer
   initSignals();                    // initialize turnSignals
   driveSelect();                    // Change to comfort mode once motor is initialized
+   
   
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt 
