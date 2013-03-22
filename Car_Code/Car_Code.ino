@@ -70,9 +70,8 @@ void setup()
 
 void loop()
 {  
-  SteerUnitTest();
   checkSerial();    // find if there is any data waiting for us
-//  collisionNear = collisionImminent();
+  collisionNear = collisionImminent();
   t.update();
 }// end loop
 
