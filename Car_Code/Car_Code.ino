@@ -9,18 +9,18 @@
 #define STEER_DATA_END    12
 #define DRIVE_HIGH        32767
 #define DRIVE_LOW         -32768
-#define SPEED_UPDATE_TIME  500   // time in mS to update the speed
-#define PACKET_LEN    12
-#define HALL_PIN      7
-#define BAUD_RATE     9600
-#define MOTOR_MAX_A  1800        // Sport max throttle (Should work to 2000, but scary on a table was 1700)
-#define MOTOR_MIN_A  1200        // Sport max reverse  (should work to 1000, but scary on a table was 1300)
-#define MOTOR_MAX_B  1600        // comfort mode
-#define MOTOR_MIN_B  1400        // comfort mode
-#define MOTOR_NEU    1500
-#define MIN_TURN      1100 // The lowest microsecond pulse the turning servo can take; a full left turn
-#define MAX_TURN      1900 // The highest microsecond pulse the turning servo can take; a full right turn
-#define NEUTRAL_TURN  1500 // Neutral turn position on the servo
+#define SPEED_UPDATE_TIME 500         // time in mS to update the speed
+#define PACKET_LEN        12
+#define HALL_PIN          7
+#define BAUD_RATE         9600
+#define MOTOR_MAX_A       1800        // Sport max throttle (Should work to 2000, but scary on a table was 1700)
+#define MOTOR_MIN_A       1200        // Sport max reverse  (should work to 1000, but scary on a table was 1300)
+#define MOTOR_MAX_B       1600        // comfort mode
+#define MOTOR_MIN_B       1400        // comfort mode
+#define MOTOR_NEU         1500
+#define MIN_TURN          1100        // The lowest microsecond pulse the turning servo can take; a full left turn
+#define MAX_TURN          1900        // The highest microsecond pulse the turning servo can take; a full right turn
+#define NEUTRAL_TURN      1500        // Neutral turn position on the servo
 
 const int leftSignal = 13;
 const int rightSignal = 8;
@@ -29,7 +29,7 @@ const int rightSignal = 8;
 char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
 Timer t;
-int lastSpeed;
+int lastSpeed = MOTOR_NEU;
 int revCount = 1;
 int MOTOR_MAX = MOTOR_MAX_A;
 int MOTOR_MIN = MOTOR_MIN_A;
@@ -69,9 +69,10 @@ void setup()
 
 
 void loop()
-{
+{  
+  SteerUnitTest();
   checkSerial();    // find if there is any data waiting for us
-  collisionNear = collisionImminent();
+//  collisionNear = collisionImminent();
   t.update();
 }// end loop
 
@@ -81,4 +82,42 @@ void ISR_hall()
 {
   if(!inReverse) // do not update the counter if you are going backwards.
     revCount++;
+    Serial.println(revCount);
+}
+
+
+void CruiseUnitTest()
+{
+  parseCruise('0', '0');    // Turn on cruise control
+  while(savedSpeed < MOTOR_MAX)
+  {
+    parseCruise('1', '1');    // Increment our speed
+    Serial.println(savedSpeed);
+    delay(1000);
+  }
+  
+  while(savedSpeed > MOTOR_MIN)
+  {
+    parseCruise('1', '2');    // Decrement our speed
+    Serial.println(savedSpeed);
+    delay(1000);    
+  }
+  
+  parseCruise('0', '0');    // Turn off cruise control
+}
+
+
+void SteerUnitTest()
+{
+  while(true)
+  {
+    steerControl(MAX_TURN);
+    delay(2500);
+    
+    steerControl(NEUTRAL_TURN);
+    delay(1000);
+    
+    steerControl(MIN_TURN);
+    delay(2500);
+  }
 }
