@@ -54,7 +54,8 @@ void cruiseSpeedUp()
   {
     if((savedSpeed + 10) < MOTOR_MAX)
     {
-      savedSpeed = savedSpeed + 10;
+      savedSpeed = savedSpeed + 10;    // Update the stored car speed
+      motorControl(savedSpeed);        // Change the motor's current speed
     }
   }
 }// end cruiseSpeedUp
@@ -70,7 +71,8 @@ void cruiseSpeedDown()
   {
     if((savedSpeed - 10) > MOTOR_MIN)  // so we dont explode our motor
     {
-      savedSpeed = savedSpeed - 10;
+      savedSpeed = savedSpeed - 10;    // Update the stored car speed
+      motorControl(savedSpeed);        // Change the motor's current speed
     }
   }
 }// end cruiseSpeedDown

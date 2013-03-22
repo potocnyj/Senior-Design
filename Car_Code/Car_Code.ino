@@ -55,8 +55,7 @@ void setup()
   motorSetup();                     // initalize motor
   steerSetup();                     // initalize steer
   initSignals();                    // initialize turnSignals
-  driveSelect();                    // Change to comfort mode once motor is initialized
-   
+  driveSelect();                    // Change to comfort mode once motor is initialized   
   
   totalDistance = readOdom();       // Read the stored odometer value from EEPROM
     
