@@ -33,7 +33,7 @@ boolean collisionImminent()
   // Is the nearest object < 100cm away?
   if (nearestObject < MIN_DIST_CM)
   {
-    if(!firstCollisionDetected)
+    if((!firstCollisionDetected) && (lastSpeed != MOTOR_NEU))
     {
       brakeEngine();
 
@@ -46,4 +46,4 @@ boolean collisionImminent()
   }
   
   return firstCollisionDetected;
-}
+} 

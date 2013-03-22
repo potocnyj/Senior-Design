@@ -81,10 +81,7 @@ void motorAlphaControl()
   else                                    // if going backwards
     inReverse = true;
   
-  if(requestedMotorSpeed != MOTOR_NEU) // from controller: -3768 or something is full reverse, while 3768 or something is full forward
-  {
-    lastSpeed = requestedMotorSpeed;   // last good speed.
-  }
+  lastSpeed = requestedMotorSpeed;   // last good speed.
   
   // if cruise control if off
   if(!cruiseControl)
