@@ -18,9 +18,9 @@
 #define MOTOR_MAX_B  1600        // comfort mode
 #define MOTOR_MIN_B  1400        // comfort mode
 #define MOTOR_NEU    1500
-#define minTurn      1100 // The lowest microsecond pulse the turning servo can take; a full left turn
-#define maxTurn      1900 // The highest microsecond pulse the turning servo can take; a full right turn
-#define neutralTurn  1500 // Neutral turn position on the servo
+#define MIN_TURN      1100 // The lowest microsecond pulse the turning servo can take; a full left turn
+#define MAX_TURN      1900 // The highest microsecond pulse the turning servo can take; a full right turn
+#define NEUTRAL_TURN  1500 // Neutral turn position on the servo
 
 const int leftSignal = 13;
 const int rightSignal = 8;
@@ -38,7 +38,7 @@ boolean inReverse = false;       // used to ensure revCount only gets updated wh
 boolean comfortMode = false;
 
 // battery
-int digitalBatteryPin = 2;
+const int digitalBatteryPin = 2;
 unsigned long totalDistance = 0;
 
 // Collision Avoidance
@@ -58,6 +58,8 @@ void setup()
   driveSelect();                    // Change to comfort mode once motor is initialized
    
   
+  totalDistance = readOdom();       // Read the stored odometer value from EEPROM
+    
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt 
   pinMode(digitalBatteryPin, OUTPUT); 

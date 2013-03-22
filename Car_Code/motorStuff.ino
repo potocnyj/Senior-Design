@@ -2,14 +2,12 @@
 #define MOTOR_PIN    6
 
 Servo motor;
-int engineSpeed;
 
 // initialize the motor control
 void motorSetup()
 {
-  engineSpeed = MOTOR_NEU;
   motor.attach(MOTOR_PIN, MOTOR_MIN, MOTOR_MAX);    // setup min and max for the motor
-  motor.writeMicroseconds(engineSpeed);             // set motor for neutral  
+  motor.writeMicroseconds(MOTOR_NEU);             // set motor for neutral  
 }// end motorSetup
 
 

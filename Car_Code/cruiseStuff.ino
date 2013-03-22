@@ -52,9 +52,9 @@ void cruiseSpeedUp()
 {
   if(cruiseControl)
   {
-    if((savedSpeed + 20) < MOTOR_MAX)
+    if((savedSpeed + 10) < MOTOR_MAX)
     {
-      savedSpeed = savedSpeed + 20;
+      savedSpeed = savedSpeed + 10;
     }
   }
 }// end cruiseSpeedUp
@@ -68,9 +68,9 @@ void cruiseSpeedDown()
 {
   if(cruiseControl) // make sure cruise is on
   {
-    if((savedSpeed - 20) > MOTOR_MIN)  // so we dont explode our motor
+    if((savedSpeed - 10) > MOTOR_MIN)  // so we dont explode our motor
     {
-      savedSpeed = savedSpeed - 20;
+      savedSpeed = savedSpeed - 10;
     }
   }
 }// end cruiseSpeedDown
