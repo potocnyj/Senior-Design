@@ -24,15 +24,17 @@ int steerParse()
     j++;
   }
   
-  return atoi(dataOut);
+  int steerPos = map(atoi(dataOut), DRIVE_LOW, DRIVE_HIGH, MIN_TURN, MAX_TURN);
+  
+  return steerPos;
 }// end steerParse
 
 
 // calls Johns steering code
-void steerControl(int dataIn)
+void steerControl(int steerPos)
 {
-  // write the turn ammount to the engine
-  int steerPos = map(dataIn, DRIVE_LOW, DRIVE_HIGH, MIN_TURN, MAX_TURN);
+  // write the turn amount to the engine
+
   if((steerPos >= MIN_TURN) &&  (steerPos <= MAX_TURN))
   {
     steer.writeMicroseconds(steerPos);

@@ -69,7 +69,7 @@ void setup()
 
 
 void loop()
-{  
+{
   checkSerial();    // find if there is any data waiting for us
   collisionNear = collisionImminent();
   t.update();
@@ -114,9 +114,12 @@ void SteerUnitTest()
     delay(2500);
     
     steerControl(NEUTRAL_TURN);
-    delay(1000);
+    delay(2500);
     
     steerControl(MIN_TURN);
+    delay(2500);
+    
+    steerControl(NEUTRAL_TURN);
     delay(2500);
   }
 }
