@@ -37,7 +37,7 @@ void speedUpdate()
   revCount = 0;
   updateDistCount++;  
   
-  if(voltageCounter == 4)
+  if(voltageCounter == 10)
   {
     getVoltage();
     voltageCounter = 0;
@@ -46,7 +46,7 @@ void speedUpdate()
   {
     voltageCounter++;
   }
-  if(timerCounter == 120)
+  if(timerCounter == 60)
   {  
     calculateTime();
     timerCounter = 0;
