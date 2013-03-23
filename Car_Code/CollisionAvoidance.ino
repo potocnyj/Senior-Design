@@ -13,6 +13,10 @@
 // a collision is detected as imminent
 boolean firstCollisionDetected = false;
 
+void toggleCollisionAvoid()
+{
+  collisionAvoidance = !collisionAvoidance;
+}
 
 // Check our sensor, determine if an object is near.
 int checkDistance() 

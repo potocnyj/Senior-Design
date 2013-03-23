@@ -42,6 +42,7 @@ const int digitalBatteryPin = 2;
 unsigned long totalDistance = 0;
 
 // Collision Avoidance
+boolean collisionAvoidance = true;
 boolean collisionNear = false;
 
 // Cruise Control Vars
@@ -71,7 +72,7 @@ void setup()
 void loop()
 {
   checkSerial();    // find if there is any data waiting for us
-  collisionNear = collisionImminent();
+  collisionNear = (collisionAvoidance) ? collisionImminent() : false;
   t.update();
 }// end loop
 
