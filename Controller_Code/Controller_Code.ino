@@ -20,7 +20,6 @@ int batTimeLeft = -1;
 int previousBatTime;
 int rangePercent = -1;
 int previousRange = 100;
-char cleanArray[PACKET_LEN -1];
 long currentODOFT = 0;
 float currentODOScaled = 0;
 float previousSpeed = -1;

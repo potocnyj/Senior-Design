@@ -40,7 +40,7 @@ void updateDisplay()
   switch(currentDisplay)
   {
     case 1:
-      checkSerial();
+      displaySpeedAODO();
       break;
     case 2:
       displayCruiseData();
@@ -73,7 +73,7 @@ void previousDisplay()
   moveDisplay();
 }
 
-void displaySpeedAODO(int currentOdometer)
+void displaySpeedAODO()
 {
   if(scaled)
   {
@@ -81,11 +81,11 @@ void displaySpeedAODO(int currentOdometer)
   }
   else
   {
-    displaySpeedODOinFeet(currentOdometer);
+    displaySpeedODOinFeet();
   }
 }
 
-void displaySpeedODOinFeet(int theGayVal)
+void displaySpeedODOinFeet()
 {
   clear_lcd();
   
@@ -101,8 +101,8 @@ void displaySpeedODOinFeet(int theGayVal)
   //bottom line
   sLCD.print("ODO: ");
   Serial.print("LCD STUFF: ");
-  Serial.println(theGayVal);
-  sLCD.print(theGayVal);
+  Serial.println(currentODOFT);
+  sLCD.print(currentODOFT);
   sLCD.print(" ft.");
 }
 

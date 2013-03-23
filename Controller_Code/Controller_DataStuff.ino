@@ -58,7 +58,8 @@ void gateKeeper()
       }
       break;
     case 'o':
-      updateOdometer(dataIn);
+        Serial.println(dataIn);
+        updateOdometer();
       break;
     default:
       break;
@@ -115,8 +116,8 @@ void toggleCruise(char cruiseDataalskd)
 
 void updateCurrentSpeed(char speedInfo[])
 { 
-  cleanInfo(speedInfo);
-  speedInFTS = atof(cleanArray) / 100;
+  speedInFTS = atof(cleanInfo(dataIn));
+  speedInFTS = speedInFTS / 100;
   speedInScaled = speedInFTS * 6.82;
   if((previousSpeed != speedInFTS) && (currentDisplay == 1))
   {
@@ -129,8 +130,7 @@ void updateCurrentSpeed(char speedInfo[])
 
 void updateBatteryDist(char batDist[])
 {
-    cleanInfo(batDist);
-    batDistFT = atof(cleanArray);
+    batDistFT = atof(cleanInfo(dataIn));
     batDistScaled = batDistFT * 6.82;
     if((previousBatDist != batDistFT) && ( currentDisplay == 4))
     {
@@ -142,7 +142,7 @@ void updateBatteryDist(char batDist[])
 void updateBatteryTime(char batTime[])
 {
   cleanInfo(batTime);
-  batTimeLeft = atof(cleanArray);
+  batTimeLeft = atof(cleanInfo(batTime));
   if((previousBatTime != batTimeLeft) && (currentDisplay == 3))
   {
     updateDisplay();
@@ -150,14 +150,13 @@ void updateBatteryTime(char batTime[])
 }
 
 
-void updateOdometer(char ODOVal[])
+void updateOdometer()
 {
-  cleanInfo(ODOVal);
-  currentODOFT = atoi(cleanArray);
+  currentODOFT = atoi(cleanInfo(dataIn));
   currentODOScaled = currentODOFT * .01894;
-  if((previousODO != currentODOFT) && ( currentDisplay == 1))
+  if(currentDisplay == 1)
   {
-      displaySpeedAODO(currentODOFT);
+      updateDisplay();
   }
   previousODO = currentODOFT;
   Serial.print("currentODOFT: ");
@@ -184,10 +183,12 @@ void updateRangeInfo()
 }
 
 
-void cleanInfo(char arrayToClean[])
+char* cleanInfo(char arrayToClean[])
 {
+    char cleanArray[PACKET_LEN -1];
     for(int i = 1; i <=  PACKET_LEN; i++)
   {
       cleanArray[i-1] = arrayToClean[i];
   }
+  return cleanArray;
 }
