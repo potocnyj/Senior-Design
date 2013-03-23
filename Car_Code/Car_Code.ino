@@ -9,7 +9,7 @@
 #define STEER_DATA_END    12
 #define DRIVE_HIGH        32767
 #define DRIVE_LOW         -32768
-#define SPEED_UPDATE_TIME 500         // time in mS to update the speed
+#define SPEED_UPDATE_TIME 250         // time in mS to update the speed
 #define PACKET_LEN        12
 #define HALL_PIN          7
 #define BAUD_RATE         9600
@@ -59,7 +59,7 @@ void setup()
   driveSelect();                    // Change to comfort mode once motor is initialized   
   
   totalDistance = readOdom();       // Read the stored odometer value from EEPROM
-    
+  
   // interrupt stuff, VERIFIY BEFORE MODIFYING 
   pinMode(HALL_PIN, INPUT);         // set pin for hall interrupt 
   pinMode(digitalBatteryPin, OUTPUT); 
