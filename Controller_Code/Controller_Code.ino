@@ -7,6 +7,7 @@ USB Usb;
 XBOXUSB Xbox(&Usb);
 char dataIn[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 char dataOut[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
+int RSSICounter = 0;
 int neutral = 1;
 int carSpeed = 0;
 int odom = 0;
@@ -20,10 +21,10 @@ int previousBatTime;
 int rangePercent = -1;
 int previousRange = 100;
 char cleanArray[PACKET_LEN -1];
-int currentODOFT = 0;
+long currentODOFT = 0;
 float currentODOScaled = 0;
 float previousSpeed = -1;
-float previousODO = -1;
+long previousODO = -1;
 boolean cruise = false;
 boolean scaled = false;
 
@@ -58,6 +59,15 @@ void loop()
   
   checkSerial();
   
+  if(RSSICounter >= 5)
+  {
+      updateRangeInfo();
+      RSSICounter = 0;
+  }
+  else
+  {
+    RSSICounter++;
+  }  
   delay(10);
 }// end loop
 

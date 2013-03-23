@@ -124,7 +124,6 @@ void updateCurrentSpeed(char speedInfo[])
   }
   previousSpeed = speedInFTS;
   
-  updateRangeInfo();
 }
 
 
@@ -155,12 +154,14 @@ void updateOdometer(char ODOVal[])
 {
   cleanInfo(ODOVal);
   currentODOFT = atoi(cleanArray);
-  currentODOScaled = currentODOFT * .001894;
+  currentODOScaled = currentODOFT * .01894;
   if((previousODO != currentODOFT) && ( currentDisplay == 1))
   {
-      updateDisplay();
+      displaySpeedAODO(currentODOFT);
   }
   previousODO = currentODOFT;
+  Serial.print("currentODOFT: ");
+  Serial.println(currentODOFT);
 }
 
 

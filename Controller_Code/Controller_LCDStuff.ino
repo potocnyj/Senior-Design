@@ -40,7 +40,7 @@ void updateDisplay()
   switch(currentDisplay)
   {
     case 1:
-      displaySpeedAODO();
+      checkSerial();
       break;
     case 2:
       displayCruiseData();
@@ -73,7 +73,7 @@ void previousDisplay()
   moveDisplay();
 }
 
-void displaySpeedAODO()
+void displaySpeedAODO(int currentOdometer)
 {
   if(scaled)
   {
@@ -81,11 +81,11 @@ void displaySpeedAODO()
   }
   else
   {
-    displaySpeedODOinFeet();
+    displaySpeedODOinFeet(currentOdometer);
   }
 }
 
-void displaySpeedODOinFeet()
+void displaySpeedODOinFeet(int theGayVal)
 {
   clear_lcd();
   
@@ -97,10 +97,12 @@ void displaySpeedODOinFeet()
   //change line
   sLCD.write(COMMAND);
   sLCD.write(LINE1);
-  
+
   //bottom line
   sLCD.print("ODO: ");
-  sLCD.print(currentODOFT);
+  Serial.print("LCD STUFF: ");
+  Serial.println(theGayVal);
+  sLCD.print(theGayVal);
   sLCD.print(" ft.");
 }
 
@@ -121,7 +123,7 @@ void displaySpeedODOinScaled()
   //bottom line
   sLCD.print("ODO: ");
   sLCD.print(currentODOScaled);
-  sLCD.print(" m");
+  sLCD.print(" mi.");
 }
 
 
@@ -300,7 +302,7 @@ void displayRangeWarning()
   clear_lcd();
   
   //top line
-  sLCD.print("RANGE WARNING!");
+  sLCD.print("Range Alert!!");
   
   //change line
   sLCD.write(COMMAND);
