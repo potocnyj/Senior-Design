@@ -82,5 +82,4 @@ void ISR_hall()
 {
   if(!inReverse) // do not update the counter if you are going backwards.
     revCount++;
-    Serial.println(revCount);
 }

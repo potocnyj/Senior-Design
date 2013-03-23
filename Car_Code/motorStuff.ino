@@ -100,10 +100,5 @@ void motorAlphaControl()
       savedSpeed = requestedMotorSpeed;    // We need to update the speed we are cruising at
       motorControl(requestedMotorSpeed);   // Update the throttle speed
     }
-    else if(requestedMotorSpeed < MOTOR_NEU)    // if user tries to put in reverse, stop cruise control
-    {
-      cruiseControl = false;
-      motorControl(requestedMotorSpeed);  // Let the user reverse the throttle
-    }
   } 
 }//end motorAlphaControl
