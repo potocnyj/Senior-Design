@@ -95,11 +95,15 @@ void motorAlphaControl()
   }
   else  // cruise control is on
   {
-    if(requestedMotorSpeed > savedThrottle)   // if user wants to go faster than cruise is going, let them
-    {                                         // inadvertently prevents reverse :(
-      savedThrottle = requestedMotorSpeed;    // We need to update the speed we are cruising at
-      updateSpeed = true;
-      motorControl(requestedMotorSpeed);      // Update the throttle speed
+    if(requestedMotorSpeed > savedSpeed)   // if user wants to go faster than cruise is going, let them
+    {                                      // inadvertently prevents reverse :(
+      savedSpeed = requestedMotorSpeed;    // We need to update the speed we are cruising at
+      motorControl(requestedMotorSpeed);   // Update the throttle speed
     }
-  }
+    else if(requestedMotorSpeed < MOTOR_NEU)    // if user tries to put in reverse, stop cruise control
+    {
+      cruiseControl = false;
+      motorControl(requestedMotorSpeed);  // Let the user reverse the throttle
+    }
+  } 
 }//end motorAlphaControl
