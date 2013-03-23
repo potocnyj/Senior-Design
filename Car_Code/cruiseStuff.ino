@@ -28,7 +28,9 @@ void toggleCruise(boolean cruise)
     cruiseControl = false;              // cruise was on, now turn off
     savedSpeed = -1;                    // reset the defalut saved speed
     lastSpeed = MOTOR_NEU;
+    motorControl(lastSpeed);
     
+    Serial.println("**c000000000000");  // tell controller cruise is off
     Serial.println("**c000000000000");  // tell controller cruise is off
     Serial.println("**c000000000000");  // tell controller cruise is off
     Serial.println("**c000000000000");  // tell controller cruise is off
@@ -39,6 +41,7 @@ void toggleCruise(boolean cruise)
     savedSpeed = lastSpeed;             // set the cruise speed as the last known good speed      
     motorControl(savedSpeed);           // tell motor to go that speed
     
+    Serial.println("**c000000000001");  // tell controller cruise is on
     Serial.println("**c000000000001");  // tell controller cruise is on
     Serial.println("**c000000000001");  // tell controller cruise is on
     Serial.println("**c000000000001");  // tell controller cruise is on

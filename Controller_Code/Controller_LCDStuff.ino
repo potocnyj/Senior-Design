@@ -150,14 +150,14 @@ void displayCruiseDataFTS()
   {
     sLCD.print("ON");
     
-    //change line
-    sLCD.write(COMMAND);
-    sLCD.write(LINE1);
-  
-    //bottom line
-    sLCD.print("SPEED: ");
-    sLCD.print(speedInFTS);
-    sLCD.print(" ft/s");
+//    //change line
+//    sLCD.write(COMMAND);
+//    sLCD.write(LINE1);
+//  
+//    //bottom line
+//    sLCD.print("SPEED: ");
+//    sLCD.print(speedInFTS);
+//    sLCD.print(" ft/s");
   }
   else
   {
@@ -176,14 +176,14 @@ void displayCruiseDataScaled()
   {
     sLCD.print("ON");
     
-    //change line
-    sLCD.write(COMMAND);
-    sLCD.write(LINE1);
-  
-    //bottom line
-    sLCD.print("SPEED: ");
-    sLCD.print(speedInScaled);
-    sLCD.print(" MPH");
+//    //change line
+//    sLCD.write(COMMAND);
+//    sLCD.write(LINE1);
+//  
+//    //bottom line
+//    sLCD.print("SPEED: ");
+//    sLCD.print(speedInScaled);
+//    sLCD.print(" MPH");
   }
   else
   {

@@ -30,9 +30,6 @@ void gateKeeper()
 {
   switch(MSB())
   {
-    case 'a':
-      toggleCollisionAvoid();
-      break;
     // Drive case 
     case 'd':
       // the drive packet is 13 bytes long.  first char is identifier 

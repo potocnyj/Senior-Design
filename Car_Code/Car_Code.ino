@@ -15,8 +15,8 @@
 #define BAUD_RATE         9600
 #define MOTOR_MAX_A       1800        // Sport max throttle (Should work to 2000, but scary on a table was 1700)
 #define MOTOR_MIN_A       1200        // Sport max reverse  (should work to 1000, but scary on a table was 1300)
-#define MOTOR_MAX_B       1700        // comfort mode
-#define MOTOR_MIN_B       1300        // comfort mode
+#define MOTOR_MAX_B       1650        // comfort mode
+#define MOTOR_MIN_B       1350        // comfort mode
 #define MOTOR_NEU         1500
 #define MIN_TURN          1100        // The lowest microsecond pulse the turning servo can take; a full left turn
 #define MAX_TURN          1900        // The highest microsecond pulse the turning servo can take; a full right turn
@@ -42,7 +42,6 @@ const int digitalBatteryPin = 2;
 unsigned long totalDistance = 0;
 
 // Collision Avoidance
-boolean collisionAvoidance = true;
 boolean collisionNear = false;
 
 // Cruise Control Vars
@@ -72,7 +71,7 @@ void setup()
 void loop()
 {
   checkSerial();    // find if there is any data waiting for us
-  collisionNear = (collisionAvoidance) ? collisionImminent() : false;
+  collisionNear = collisionImminent();
   t.update();
 }// end loop
 

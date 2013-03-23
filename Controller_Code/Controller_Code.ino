@@ -150,10 +150,6 @@ void pollButtons()
     Serial.println("**c000000000000");
     //will set cruise control
   }
-  if(Xbox.getButton(L1)){
-    Serial.println("**a000000000000");
-    //will set cruise control
-  }
   
   if(Xbox.getButton(X)){
     scaled = !scaled;

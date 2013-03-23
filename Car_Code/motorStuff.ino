@@ -65,7 +65,7 @@ void brakeEngine()
   motor.writeMicroseconds(MOTOR_NEU);
   delay(50);
   motor.writeMicroseconds(MOTOR_MIN);
-  delay(300);
+  delay(350);
   motor.writeMicroseconds(MOTOR_NEU);
 }
     
@@ -83,14 +83,12 @@ void motorAlphaControl()
   else  // if going backwards
   {
     inReverse = true;
-    toggleCruise(false); // a reverse vector indicates cruise should be off
   }
-  
-  lastSpeed = requestedMotorSpeed;   // last good speed.
   
   // if cruise control if off
   if(!cruiseControl)
   {
+    lastSpeed = requestedMotorSpeed;    // last good speed.
     motorControl(requestedMotorSpeed);  // use the requested motor speed
   }
   else  // cruise control is on
@@ -100,5 +98,10 @@ void motorAlphaControl()
       savedSpeed = requestedMotorSpeed;    // We need to update the speed we are cruising at
       motorControl(requestedMotorSpeed);   // Update the throttle speed
     }
-  } 
+    else if(requestedMotorSpeed < MOTOR_NEU)    // if user tries to put in reverse, stop cruise control
+    {
+      toggleCruise(false); // a reverse vector indicates cruise should be off
+      motorControl(requestedMotorSpeed);  // Let the user reverse the throttle
+    }
+  }   
 }//end motorAlphaControl

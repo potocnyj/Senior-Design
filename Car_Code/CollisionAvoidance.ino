@@ -13,11 +13,6 @@
 // a collision is detected as imminent
 boolean firstCollisionDetected = false;
 
-void toggleCollisionAvoid()
-{
-  collisionAvoidance = !collisionAvoidance;
-}
-
 // Check our sensor, determine if an object is near.
 int checkDistance() 
 {
@@ -37,7 +32,7 @@ boolean collisionImminent()
   // Is the nearest object < 100cm away?
   if (nearestObject < MIN_DIST_CM)
   {
-    if((!firstCollisionDetected) && (lastSpeed != MOTOR_NEU))
+    if((!firstCollisionDetected) && (lastSpeed > MOTOR_NEU))
     {
       brakeEngine();
 
