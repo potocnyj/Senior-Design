@@ -30,7 +30,7 @@ char data[] = {'0','0','0','0','0','0','0','0','0','0','0','0','0'};
 
 Timer t;
 int lastSpeed = MOTOR_NEU;
-int revCount = 1;
+int revCount  = 1;
 int MOTOR_MAX = MOTOR_MAX_A;
 int MOTOR_MIN = MOTOR_MIN_A;
 volatile int revCounter = 0;     // used to count # of forward revolutions of wheel
@@ -46,8 +46,11 @@ boolean collisionAvoidance = true;
 boolean collisionNear = false;
 
 // Cruise Control Vars
-boolean  cruiseControl = false;
-int      savedSpeed = -1;
+boolean cruiseControl = false;
+boolean updateSpeed   = false;  // A flag boolean indicating whether we need to re-read the cruise speed
+int savedThrottle = -1;         // The throttle value being written to the motor
+int savedSpeed    = -1;         // The speed target during cruise control
+int carSpeedInt;                // This is the current speed as shown by the speedometer
 
 
 void setup()
@@ -73,6 +76,12 @@ void loop()
 {
   checkSerial();    // find if there is any data waiting for us
   collisionNear = (collisionAvoidance) ? collisionImminent() : false;
+  
+  if (cruiseControl)
+  {
+    adjustSpeed();
+  }
+  
   t.update();
 }// end loop
 
@@ -82,5 +91,4 @@ void ISR_hall()
 {
   if(!inReverse) // do not update the counter if you are going backwards.
     revCount++;
-    Serial.println(revCount);
 }

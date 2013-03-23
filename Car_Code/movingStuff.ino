@@ -13,16 +13,20 @@ void speedUpdate()
 {
   float carSpeed;
   float distance;
-  int carSpeedInt;
   String carSpeedOut;
 
   distance = (revCount * WHEEL_CIRCUM) / 12.0f; // distance in ft
     // speed   =   distance(feet) /     time (seconds )                (scaling factor)
   carSpeed = ((float)(distance / ((float)(SPEED_UPDATE_TIME / 1000.0f))))*100;
   carSpeedInt = (int)floor(carSpeed);
+  if (cruiseControl && updateSpeed) // if we have throttled up, then change our saved speed to the new speed
+  {
+    savedSpeed = carSpeedInt;
+    updateSpeed = false;
+  }
   carSpeedOut = (String)carSpeedInt;
   carSpeedOut = zeroPadVar((String)carSpeedOut, 12);
-    
+  
   Serial.println("**s" + carSpeedOut);
     
   // use this to update the odometer

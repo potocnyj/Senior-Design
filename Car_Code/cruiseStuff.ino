@@ -26,8 +26,9 @@ void toggleCruise(boolean cruise)
   if(cruise == false)
   {
     cruiseControl = false;              // cruise was on, now turn off
-    savedSpeed = -1;                    // reset the defalut saved speed
-    lastSpeed = MOTOR_NEU;
+    savedThrottle = -1;                 // reset the defalut saved speed
+    savedSpeed    = -1;
+    lastSpeed     = MOTOR_NEU;
     
     Serial.println("**c000000000000");  // tell controller cruise is off
     Serial.println("**c000000000000");  // tell controller cruise is off
@@ -36,8 +37,9 @@ void toggleCruise(boolean cruise)
   else
   {
     cruiseControl = true;               // cruise is not on, turn on
-    savedSpeed = lastSpeed;             // set the cruise speed as the last known good speed      
-    motorControl(savedSpeed);           // tell motor to go that speed
+    savedThrottle = lastSpeed;          // set the cruise throttle as the last known good speed
+    savedSpeed    = carSpeedInt;        // set the cruise target speed to the last measured speed
+    motorControl(savedThrottle);        // tell motor to go that speed
     
     Serial.println("**c000000000001");  // tell controller cruise is on
     Serial.println("**c000000000001");  // tell controller cruise is on
@@ -47,34 +49,53 @@ void toggleCruise(boolean cruise)
 
 
 // increment the cruise control speed
-// NOTE: this code was never adapted 
-// to run based off of the car's speed, 
-// rather than its throttle
 void cruiseSpeedUp()
 {
-  if(cruiseControl)
-  {
-    if((savedSpeed + 10) <= MOTOR_MAX)
-    {
-      savedSpeed = savedSpeed + 10;     // Update the stored car speed
-      motorControl(savedSpeed);        // Change the motor's current speed
-    }
-  }
+  savedSpeed += 100;
 }// end cruiseSpeedUp
 
 
 // decrement the cruise control speed
-// NOTE: this code was never adapted 
-// to run based off of the car's speed, 
-// rather than its throttle
 void cruiseSpeedDown()
+{
+  savedSpeed -= 100;
+}// end cruiseSpeedDown
+
+
+void cruiseThrottleUp()
+{
+  if(cruiseControl)
+  {
+    if((savedThrottle + 10) <= MOTOR_MAX)
+    {
+      savedThrottle = savedThrottle + 10;     // Update the stored car speed
+      motorControl(savedThrottle);            // Change the motor's current speed
+    }
+  }
+}
+
+
+void cruiseThrottleDown()
 {
   if(cruiseControl) // make sure cruise is on
   {
-    if((savedSpeed - 10) >= MOTOR_MIN)  // so we dont explode our motor
+    if((savedThrottle - 10) >= MOTOR_MIN)
     {
-      savedSpeed = savedSpeed - 10;     // Update the stored car speed
-      motorControl(savedSpeed);        // Change the motor's current speed
+      savedThrottle = savedThrottle - 10;     // Update the stored car speed
+      motorControl(savedThrottle);            // Change the motor's current speed
     }
   }
-}// end cruiseSpeedDown
+}
+
+
+void adjustSpeed()
+{
+  if((carSpeedInt/100) < (savedSpeed/100))
+  {
+    cruiseThrottleUp();
+  }
+  else if ((carSpeedInt/100) > (savedSpeed/100))
+  {
+    cruiseThrottleDown();
+  }
+}
