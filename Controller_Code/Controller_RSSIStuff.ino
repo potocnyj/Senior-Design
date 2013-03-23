@@ -8,6 +8,7 @@ int RSSI4 = 100;
 int RSSI5 = 100;
 int rssiCount = 1;
 
+
 int getRSSI()
 {
   // use the map function to map the pin output from 100 to 0.  
@@ -23,10 +24,10 @@ int getRSSI()
   pulseDur = map(pulseDur, 0, RSSI_TIMEOUT, 100, 0);
 //  Serial.println(pulseDur);
 
-  
-    
+  Serial.println(pulseDur);
  // Serial.println((RSSI1+RSSI2+RSSI3+RSSI4+RSSI5)/5);
   return rollingAvg(pulseDur);
+
 }
 
 int rollingAvg(int pulseDurIn)
@@ -52,3 +53,4 @@ int rollingAvg(int pulseDurIn)
   
   return avg;
 }//end rollingAvg
+

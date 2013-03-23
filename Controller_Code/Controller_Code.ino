@@ -2,6 +2,7 @@
 #include <SoftwareSerial.h>
 
 #define PACKET_LEN    12
+#define RSSI_DELAY    500
 
 USB Usb;
 XBOXUSB Xbox(&Usb);
@@ -24,6 +25,7 @@ long currentODOFT = 0;
 float currentODOScaled = 0;
 float previousSpeed = -1;
 long previousODO = -1;
+long oldTime = 0;
 boolean cruise = false;
 boolean scaled = false;
 
@@ -67,6 +69,8 @@ void loop()
   {
     RSSICounter++;
   }  
+  
+ 
   delay(10);
 }// end loop
 
