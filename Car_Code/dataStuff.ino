@@ -38,8 +38,8 @@ void gateKeeper()
       // the drive packet is 13 bytes long.  first char is identifier 
       // next 6 chars is throttle position, the last 6 are steering
       // position.
-      motorAlphaControl();            // engine
       steerControl(steerParse());     // steering
+      motorAlphaControl();            // engine
       break;
     case 'c': // cruise control
       parseCruise(data[PACKET_LEN], data[1]);  // last byte for parsing, 1 for speed control

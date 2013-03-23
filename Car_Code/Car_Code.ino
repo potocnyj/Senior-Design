@@ -15,8 +15,8 @@
 #define BAUD_RATE         9600
 #define MOTOR_MAX_A       1800        // Sport max throttle (Should work to 2000, but scary on a table was 1700)
 #define MOTOR_MIN_A       1200        // Sport max reverse  (should work to 1000, but scary on a table was 1300)
-#define MOTOR_MAX_B       1600        // comfort mode
-#define MOTOR_MIN_B       1400        // comfort mode
+#define MOTOR_MAX_B       1700        // comfort mode
+#define MOTOR_MIN_B       1300        // comfort mode
 #define MOTOR_NEU         1500
 #define MIN_TURN          1100        // The lowest microsecond pulse the turning servo can take; a full left turn
 #define MAX_TURN          1900        // The highest microsecond pulse the turning servo can take; a full right turn
@@ -83,44 +83,4 @@ void ISR_hall()
   if(!inReverse) // do not update the counter if you are going backwards.
     revCount++;
     Serial.println(revCount);
-}
-
-
-void CruiseUnitTest()
-{
-  parseCruise('0', '0');    // Turn on cruise control
-  while(savedSpeed < MOTOR_MAX)
-  {
-    parseCruise('1', '1');    // Increment our speed
-    Serial.println(savedSpeed);
-    delay(1000);
-  }
-  
-  while(savedSpeed > MOTOR_MIN)
-  {
-    parseCruise('1', '2');    // Decrement our speed
-    Serial.println(savedSpeed);
-    delay(1000);    
-  }
-  
-  parseCruise('0', '0');    // Turn off cruise control
-}
-
-
-void SteerUnitTest()
-{
-  while(true)
-  {
-    steerControl(MAX_TURN);
-    delay(2500);
-    
-    steerControl(NEUTRAL_TURN);
-    delay(2500);
-    
-    steerControl(MIN_TURN);
-    delay(2500);
-    
-    steerControl(NEUTRAL_TURN);
-    delay(2500);
-  }
 }

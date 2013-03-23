@@ -65,7 +65,7 @@ void brakeEngine()
   motor.writeMicroseconds(MOTOR_NEU);
   delay(50);
   motor.writeMicroseconds(MOTOR_MIN);
-  delay(250);
+  delay(300);
   motor.writeMicroseconds(MOTOR_NEU);
 }
     
