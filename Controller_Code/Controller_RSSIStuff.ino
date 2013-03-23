@@ -18,22 +18,34 @@ int getRSSI()
   // by if it is to close, we get all 0s for some reason, 
   // NEED TO TRY: having it go from 100 to 0 at closer ranges -works on far ranges, not so much the close
   pulseDur = map(pulseDur, 0, RSSI_TIMEOUT, 100, 0);
+  Serial.println(pulseDur);
+
   
-  if(rssiCount = 1)
-    RSSI1 = pulseDur;
-  else if(rssiCount = 2)
-    RSSI2 = pulseDur;
-  else if(rssiCount = 3)
-    RSSI3 = pulseDur;
-  else if(rssiCount = 4)
-    RSSI4 = pulseDur;
-  else if(rssiCount = 5)
-    RSSI5 = pulseDur;
-  
-  if(rssiCount <= 5)
-    rssiCount++;    
-  else
-    rssiCount = 1;
-  
-  return ((RSSI1+RSSI2+RSSI3+RSSI4+RSSI5)/5);
+    
+ // Serial.println((RSSI1+RSSI2+RSSI3+RSSI4+RSSI5)/5);
+  return rollingAvg(pulseDur);
 }
+
+int rollingAvg(int pulseDurIn)
+{
+  int avg=0;
+  if(rssiCount == 1)
+    RSSI1 = pulseDurIn;
+  else if(rssiCount == 2)
+    RSSI2 = pulseDurIn;
+  else if(rssiCount == 3)
+    RSSI3 = pulseDurIn;
+  else if(rssiCount == 4)
+    RSSI4 = pulseDurIn;
+  else if(rssiCount == 5)
+    RSSI5 = pulseDurIn;
+  
+  if(rssiCount == 5)
+    rssiCount = 1;    
+  else
+    rssiCount++; 
+  
+  avg = ((RSSI1 + RSSI2 + RSSI3 + RSSI4 + RSSI5) / 5);
+  
+  return avg;
+}//end rollingAvg
