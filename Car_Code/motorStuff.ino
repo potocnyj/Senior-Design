@@ -77,9 +77,14 @@ void motorAlphaControl()
   int requestedMotorSpeed = motorParse();
   
   if(requestedMotorSpeed >= MOTOR_NEU)    // if going forward
+  {
     inReverse = false;
-  else                                    // if going backwards
+  }
+  else  // if going backwards
+  {
     inReverse = true;
+    toggleCruise(false); // a reverse vector indicates cruise should be off
+  }
   
   lastSpeed = requestedMotorSpeed;   // last good speed.
   

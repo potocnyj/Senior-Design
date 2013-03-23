@@ -5,7 +5,7 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
 {  
   if(cruiseControlBit == '0') // if its 0, toggle cruise control
   {
-    initCruise();
+    toggleCruise(!cruiseControl);
   }
 
   // Make sure
@@ -21,9 +21,9 @@ void parseCruise(char cruiseControlBit, char cruiseSpeedBit)
 }// end parseCruise
 
 // toggle cruise control
-void initCruise()
+void toggleCruise(boolean cruise)
 {
-  if(cruiseControl)
+  if(cruise == false)
   {
     cruiseControl = false;              // cruise was on, now turn off
     savedSpeed = -1;                    // reset the defalut saved speed
@@ -43,7 +43,7 @@ void initCruise()
     Serial.println("**c000000000001");  // tell controller cruise is on
     Serial.println("**c000000000001");  // tell controller cruise is on
   }
-}//end initCruise
+}//end toggleCruise
 
 
 // increment the cruise control speed
