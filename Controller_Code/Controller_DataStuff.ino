@@ -58,7 +58,6 @@ void gateKeeper()
       }
       break;
     case 'o':
-        Serial.println(dataIn);
         updateOdometer();
       break;
     default:
@@ -123,8 +122,8 @@ void updateCurrentSpeed(char speedInfo[])
   {
        updateDisplay();
   }
-  previousSpeed = speedInFTS;
   
+  previousSpeed = speedInFTS;  
 }
 
 
@@ -154,13 +153,12 @@ void updateOdometer()
 {
   currentODOFT = atoi(cleanInfo(dataIn));
   currentODOScaled = currentODOFT * .01894;
-  if(currentDisplay == 1)
+  if((currentDisplay == 1) && (currentODOFT != previousODO))
   {
       updateDisplay();
   }
+  
   previousODO = currentODOFT;
-  Serial.print("currentODOFT: ");
-  Serial.println(currentODOFT);
 }
 
 
@@ -185,10 +183,11 @@ void updateRangeInfo()
 
 char* cleanInfo(char arrayToClean[])
 {
-    char cleanArray[PACKET_LEN -1];
-    for(int i = 1; i <=  PACKET_LEN; i++)
+  char cleanArray[PACKET_LEN -1];
+  for(int i = 1; i <=  PACKET_LEN; i++)
   {
       cleanArray[i-1] = arrayToClean[i];
   }
+  
   return cleanArray;
 }

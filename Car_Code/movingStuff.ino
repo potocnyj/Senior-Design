@@ -32,7 +32,7 @@ void speedUpdate()
   // use this to update the odometer
   if(updateDistCount >= DIST_UPDATE_RATE)    // time for updateDist = (updateDistCount)*Speed_update_time (in seconds)
   {
-    writeDist(distance);
+    writeDist((totalRevCount * WHEEL_CIRCUM) / 12.0f);
     updateDistCount = 0;
     totalRevCount = 0;    
   }

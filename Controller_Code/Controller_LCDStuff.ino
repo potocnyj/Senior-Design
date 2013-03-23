@@ -100,8 +100,8 @@ void displaySpeedODOinFeet()
 
   //bottom line
   sLCD.print("ODO: ");
-  Serial.print("LCD STUFF: ");
-  Serial.println(currentODOFT);
+//  Serial.print("LCD STUFF: ");
+//  Serial.println(currentODOFT);
   sLCD.print(currentODOFT);
   sLCD.print(" ft.");
 }
